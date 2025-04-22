@@ -1,5 +1,8 @@
 package hug_fall_legs;
 import javax.swing.*;
+
+import hug_fall_legs.ReadingRoom;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,6 +51,14 @@ public class MainWindow {
 
             // 開啟新視窗
             new StatisticalSubWindow();
+        });
+
+        flashcardButton.addActionListener(e -> {
+            // 關閉目前視窗
+            frame.dispose();
+
+            // 開啟新視窗
+            new ReadingRoom();
         });
 
         centerPanel.add(Box.createVerticalGlue());
