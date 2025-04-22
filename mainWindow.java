@@ -1,3 +1,4 @@
+package hug_fall_legs;
 import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,6 +41,14 @@ public class MainWindow {
             btn.setMaximumSize(new java.awt.Dimension(buttonWidth, buttonHeight));
             btn.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         }
+
+        statsButton.addActionListener(e -> {
+            // 關閉目前視窗
+            frame.dispose();
+
+            // 開啟新視窗
+            new SubWindow8();
+        });
 
         centerPanel.add(Box.createVerticalGlue());
         centerPanel.add(statsButton);

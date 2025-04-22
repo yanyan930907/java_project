@@ -3,9 +3,9 @@ import javax.swing.*;
 
 import javax.swing.*;
 
-public class Subwindow8 extends JFrame {
+public class SubWindow8 extends JFrame {
 
-    public Subwindow8() {
+    public SubWindow8() {
         setTitle("讀書記錄");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
@@ -54,6 +54,6 @@ public class Subwindow8 extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(Subwindow8::new);
+        SwingUtilities.invokeLater(SubWindow8::new);
     }
 }
