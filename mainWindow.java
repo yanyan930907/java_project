@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,15 +12,19 @@ public class MainWindow {
         JFrame frame = new JFrame("複習工具");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 800);
-        frame.setLayout(new BorderLayout());
+        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
         // ====== 右上角的計時器顯示區 ======
         timerLabel = new JLabel("00:00:00");
-        timerLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        timerLabel.setFont(timerLabel.getFont().deriveFont(18f));
 
-        JPanel topRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel topRightPanel = new JPanel();
+        topRightPanel.setLayout(new BoxLayout(topRightPanel, BoxLayout.X_AXIS));
+        topRightPanel.add(Box.createHorizontalGlue());
         topRightPanel.add(timerLabel);
-        frame.add(topRightPanel, BorderLayout.NORTH);
+        topRightPanel.add(Box.createHorizontalStrut(10));
+
+        frame.add(topRightPanel);
 
         // ====== 中間的按鈕區域 ======
         JPanel centerPanel = new JPanel();
@@ -32,9 +34,10 @@ public class MainWindow {
         JButton flashcardButton = new JButton("複習小卡");
         JButton timerButton = new JButton("計時器設定");
 
-        Dimension buttonSize = new Dimension(200, 50);
+        int buttonWidth = 400;
+        int buttonHeight = 200;
         for (JButton btn : new JButton[]{statsButton, flashcardButton, timerButton}) {
-            btn.setMaximumSize(buttonSize);
+            btn.setMaximumSize(new java.awt.Dimension(buttonWidth, buttonHeight));
             btn.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         }
 
@@ -46,11 +49,13 @@ public class MainWindow {
         centerPanel.add(timerButton);
         centerPanel.add(Box.createVerticalGlue());
 
-        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(centerPanel);
 
         // ====== 點擊「計時器設定」時動作 ======
         timerButton.addActionListener(e -> {
-            JPanel inputPanel = new JPanel(new GridLayout(3, 2));
+            JPanel inputPanel = new JPanel();
+            inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
+
             JTextField hourField = new JTextField("0");
             JTextField minField = new JTextField("0");
             JTextField secField = new JTextField("0");
