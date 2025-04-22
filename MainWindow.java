@@ -47,7 +47,7 @@ public class MainWindow {
             frame.dispose();
 
             // 開啟新視窗
-            new SubWindow8();
+            new StatisticalSubWindow();
         });
 
         centerPanel.add(Box.createVerticalGlue());

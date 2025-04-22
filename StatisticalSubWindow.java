@@ -2,9 +2,9 @@ package hug_fall_legs;
 
 import javax.swing.*;
 
-public class SubWindow8 extends JFrame {
+public class StatisticalSubWindow extends JFrame {
 
-    public SubWindow8() {
+    public StatisticalSubWindow() {
         setTitle("讀書記錄");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
@@ -74,6 +74,6 @@ public class SubWindow8 extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(SubWindow8::new);
+        SwingUtilities.invokeLater(StatisticalSubWindow::new);
     }
 }
