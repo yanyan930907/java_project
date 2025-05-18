@@ -1,102 +1,54 @@
 package hug_fall_legs;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import hug_fall_legs.ReadingRoom;
 
-public class MainWindow extends JFrame{
-    //Button declare
-    private JButton allCardsButton;
-    private JButton statisticButton;
-    private JButton allDataButton;
-    private JButton errorButton;
-    private JButton stopTimeButton;
-    private JButton setTimeButton;
-    //Label declare
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+// 主視窗類別，只負責組合其他元件
+public class MainWindow extends JFrame {
+
+    private ButtonPanel buttonPanel;
+    private TimePanel timePanel;
     private JLabel titleLabel;
-    public JLabel hoursLabel;
-    public JLabel minutesLabel;
-    public JLabel secondsLabel;
 
-    public MainWindow(){
+    public MainWindow() {
         super("hug_fall_legs");
-        MainEventListner handler = new MainEventListner();
 
-        // create buttons and add action listeners
-        allCardsButton = new JButton("全部卡片");
-        setTimeButton = new JButton("設定時間");
-        statisticButton = new JButton("統計資料");
-        errorButton = new JButton("錯誤整理");
-        stopTimeButton = new JButton("暫停時間");
-        allDataButton = new JButton("所有資料");
+        // 設定 Nimbus Look and Feel
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            System.err.println("無法載入 Nimbus LookAndFeel");
+        }
 
-        allCardsButton.addActionListener(handler);
-        setTimeButton.addActionListener(handler);
-        statisticButton.addActionListener(handler);
-        errorButton.addActionListener(handler);
-        stopTimeButton.addActionListener(handler);
-        allDataButton.addActionListener(handler);
-        
-        titleLabel = new JLabel("hug_fall_legs");
-        hoursLabel = new JLabel("00");
-        minutesLabel = new JLabel("00");
-        secondsLabel = new JLabel("00");
-        hoursLabel.setToolTipText("hour");
-        hoursLabel.setToolTipText("minute");
-        hoursLabel.setToolTipText("second");
-        
-        JPanel functionPanel = new JPanel();
-        functionPanel.add(allCardsButton);
-        functionPanel.add(statisticButton);
-        functionPanel.add(allDataButton);
-        functionPanel.add(errorButton);
+        setLayout(new BorderLayout(10, 10));
 
-        JPanel timePanel = new JPanel();
-        timePanel.add(hoursLabel);
-        timePanel.add(minutesLabel);
-        timePanel.add(secondsLabel);
-        timePanel.add(setTimeButton);
-        timePanel.add(stopTimeButton);
+        // 標題
+        titleLabel = new JLabel("hug_fall_legs", JLabel.CENTER);
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titleLabel.setBorder(new EmptyBorder(20, 0, 10, 0));
+        titleLabel.setForeground(new Color(30, 60, 90));
+        add(titleLabel, BorderLayout.NORTH);
 
-        //Layout 待修改
-        functionPanel.setLayout( new BoxLayout(functionPanel,BoxLayout.Y_AXIS));
-        add(functionPanel, BorderLayout.CENTER);
-        add(timePanel, BorderLayout.EAST);
-        
+        // 按鈕面板
+        buttonPanel = new ButtonPanel();
+        add(buttonPanel, BorderLayout.CENTER);
+
+        // 時間面板
+        timePanel = new TimePanel();
+        add(timePanel, BorderLayout.SOUTH);
+
+        // 主視窗設定
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setVisible(true);
+
+        // 將事件監聽器注入（讓事件可以反應到不同元件）
+        MainEventListener handler = new MainEventListener(buttonPanel, timePanel);
+        buttonPanel.setActionListener(handler);
+        timePanel.setActionListener(handler);
     }
-    
-    private class MainEventListner implements ActionListener {
-		// change font size when user clicks on a button
-		@Override
-		public void actionPerformed(ActionEvent event)
-		{
-			if(event.getSource()==allCardsButton){
-				
-			}
-			else if(event.getSource()==setTimeButton){
-				
-			}
-            else if(event.getSource()==statisticButton){
-				
-			}
-            else if(event.getSource()==errorButton){
-				
-			}
-            else if(event.getSource()==stopTimeButton){
-				
-			}
-            else if(event.getSource()==allDataButton){
-				
-			}
-		}
-	}
 }

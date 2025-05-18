@@ -1,0 +1,47 @@
+package hug_fall_legs;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+// 按鈕區域面板
+public class ButtonPanel extends JPanel {
+
+    JButton allCardsButton;
+    JButton statisticButton;
+    JButton allDataButton;
+    JButton errorButton;
+
+    public ButtonPanel() {
+        setLayout(new GridLayout(1, 4, 30, 10));
+        setBorder(new EmptyBorder(20, 30, 20, 30));
+
+        allCardsButton = new JButton("全部卡片");
+        statisticButton = new JButton("統計資料");
+        allDataButton = new JButton("所有資料");
+        errorButton = new JButton("錯誤整理");
+
+        JButton[] buttons = { allCardsButton, statisticButton, allDataButton, errorButton };
+
+        Font buttonFont = new Font("Microsoft JhengHei", Font.BOLD, 20);
+        Color btnBgColor = new Color(70, 130, 180); // 鋼藍色
+        Color btnFgColor = Color.WHITE;
+
+        for (JButton btn : buttons) {
+            btn.setFont(buttonFont);
+            btn.setBackground(btnBgColor);
+            btn.setForeground(btnFgColor);
+            btn.setFocusPainted(false);
+            btn.setPreferredSize(new Dimension(140, 50));
+            add(btn);
+        }
+    }
+
+    public void setActionListener(ActionListener listener) {
+        allCardsButton.addActionListener(listener);
+        statisticButton.addActionListener(listener);
+        allDataButton.addActionListener(listener);
+        errorButton.addActionListener(listener);
+    }
+}
