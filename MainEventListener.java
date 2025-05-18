@@ -1,5 +1,7 @@
 package hug_fall_legs;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 // 事件監聽器分離成獨立類別
@@ -19,21 +21,28 @@ public class MainEventListener implements ActionListener {
         if (source == buttonPanel.allCardsButton) {
             // 全部卡片邏輯
             System.out.println("全部卡片被按下");
+           
         } else if (source == timePanel.setTimeButton) {
             // 設定時間邏輯
             System.out.println("設定時間被按下");
+           
         } else if (source == buttonPanel.statisticButton) {
             // 統計資料邏輯
             System.out.println("統計資料被按下");
+           
         } else if (source == buttonPanel.errorButton) {
             // 錯誤整理邏輯
             System.out.println("錯誤整理被按下");
+           
         } else if (source == timePanel.stopTimeButton) {
             // 暫停時間邏輯
             System.out.println("暫停時間被按下");
+            
         } else if (source == buttonPanel.allDataButton) {
             // 所有資料邏輯
             System.out.println("所有資料被按下");
+        
         }
     }
+   
 }
