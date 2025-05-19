@@ -1,4 +1,4 @@
-package java_project.java_final_project;
+package java_final_project;
 
 public class TimerManager {
     private long startTime;

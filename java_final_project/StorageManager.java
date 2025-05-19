@@ -1,4 +1,4 @@
-package java_project.java_final_project;
+package java_final_project;
 
 public class StorageManager {
     public void saveCards(List<Card> cards, String filePath) { /* 儲存為 JSON */ }
