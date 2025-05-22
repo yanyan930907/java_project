@@ -1,3 +1,4 @@
+/*
 package hug_fall_legs;
 import javax.swing.JFrame;
 
@@ -10,3 +11,4 @@ public class runMainWindow{
 		myFrame.setVisible(true);
 	}
 }
+*/

@@ -35,6 +35,9 @@ public class TimePanel extends JPanel {
         setTimeButton = new JButton("開始計時");
         stopTimeButton = new JButton("暫停時間");
         recordButton = new JButton("結束計時");
+        stopTimeButton.addActionListener(e -> setTimeButton.setText("繼續計時"));
+        recordButton.addActionListener(e -> setTimeButton.setText("開始計時"));
+
 
         Font buttonFont = new Font("Microsoft JhengHei", Font.BOLD, 20);
         Color timeBtnBgColor = new Color(100, 149, 237); // 玉米花藍

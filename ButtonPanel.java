@@ -12,8 +12,10 @@ public class ButtonPanel extends JPanel {
     JButton statisticButton;
     JButton allDataButton;
     JButton errorButton;
+    private testmainMadeBy13 parent;
 
-    public ButtonPanel() {
+    public ButtonPanel(testmainMadeBy13 parent) {
+        this.parent = parent;
         setLayout(new GridLayout(1, 4, 30, 10));
         setBorder(new EmptyBorder(20, 30, 20, 30));
 
@@ -36,6 +38,7 @@ public class ButtonPanel extends JPanel {
             btn.setPreferredSize(new Dimension(140, 50));
             add(btn);
         }
+        statisticButton.addActionListener(e -> parent.showStatistic());
     }
 
     public void setActionListener(ActionListener listener) {
