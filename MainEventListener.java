@@ -10,10 +10,19 @@ public class MainEventListener implements ActionListener {
     private ButtonPanel buttonPanel;
     private TimePanel timePanel;
     private TimerManager timerManager = new TimerManager();
+    private Timer swingTimer;
 
     public MainEventListener(ButtonPanel buttonPanel, TimePanel timePanel) {
         this.buttonPanel = buttonPanel;
         this.timePanel = timePanel;
+
+        swingTimer = new javax.swing.Timer(1000, e -> {
+            if (timerManager.isRunning()) {
+                Time time = timerManager.getElapsedTime();
+                timePanel.updateTime(time);
+            }
+        });
+        swingTimer.start();
     }
 
     @Override
@@ -39,6 +48,9 @@ public class MainEventListener implements ActionListener {
             // 暫停時間邏輯
             System.out.println("暫停時間被按下");
             timerManager.pause();
+            Time time = timerManager.getElapsedTime();
+            timePanel.updateTime(time);
+
         } else if (source == buttonPanel.allDataButton) {
             // 所有資料邏輯
             System.out.println("所有資料被按下");

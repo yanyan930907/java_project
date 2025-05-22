@@ -31,7 +31,7 @@ public class TimePanel extends JPanel {
         minutesLabel.setFont(timeFont);
         secondsLabel.setFont(timeFont);
 
-        setTimeButton = new JButton("設定時間");
+        setTimeButton = new JButton("開始計時");
         stopTimeButton = new JButton("暫停時間");
 
         Font buttonFont = new Font("Microsoft JhengHei", Font.BOLD, 20);
