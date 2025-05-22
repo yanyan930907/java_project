@@ -1,7 +1,6 @@
 package java_final_project;
 
 import java.util.*;
-import java.time.*;
 
 public class ReviewStatistics {
     private ArrayList<ReviewSession> statistic; // session統計
