@@ -60,4 +60,9 @@ public class TimePanel extends JPanel {
         setTimeButton.addActionListener(listener);
         stopTimeButton.addActionListener(listener);
     }
+    public void updateTime(Time time) {
+        hoursLabel.setText(String.format("%02d", time.getHour()));
+        minutesLabel.setText(String.format("%02d", time.getMinute()));
+        secondsLabel.setText(String.format("%02d", time.getSecond()));
+    }
 }
