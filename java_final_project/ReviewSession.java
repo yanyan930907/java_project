@@ -17,6 +17,8 @@ public class ReviewSession {
     }
 
     public String getSubject() { return subject; }
+    public long getDurationSeconds() { return durationSeconds; }
+
     public String getDurationTime() {
         long tmp = durationSeconds;
         long hour = tmp/3600;
@@ -24,11 +26,15 @@ public class ReviewSession {
         long minute = tmp/60;
         tmp = tmp%60;
         long second = tmp;
-        return hour + " : " + minute +" : " + second;
+        return hour + " : " + minute + " : " + second;
     }
     public String getNotes() { return notes; }
     public Date getTimestamp() {return timestamp; }
 
-    
+    @Override
+    public String toString(){
+        return "科目：" + getSubject() + "時間：" + getDurationTime() + "心得：" + getNotes() + "時間段：" + getTimestamp();
+    }
+
 }
 
