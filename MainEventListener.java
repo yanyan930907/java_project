@@ -48,10 +48,15 @@ public class MainEventListener implements ActionListener {
             // 暫停時間邏輯
             System.out.println("暫停時間被按下");
             timerManager.pause();
-            Time time = timerManager.getElapsedTime();
+        }
+        else if (source == timePanel.recordButton) {
+            // 暫停時間邏輯
+            System.out.println("結束時間被按下");
+            timerManager.pause();
+            Time time = new Time();
             timePanel.updateTime(time);
-
-        } else if (source == buttonPanel.allDataButton) {
+        }
+        else if (source == buttonPanel.allDataButton) {
             // 所有資料邏輯
             System.out.println("所有資料被按下");
         
