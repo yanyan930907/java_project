@@ -9,7 +9,7 @@ public class Card {
     private String category;  // 分類，例如：「錯題」
     private String linkedFilePath;  // 關聯檔案的路徑或URL
 
-
+    
     public Card(String frontText, ImageIcon image, String backHint, String category, String linkedFilePath) {
         this.frontText = frontText;
         this.image = image;
