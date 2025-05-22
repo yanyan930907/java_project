@@ -18,6 +18,7 @@ public class CardMain {
         // 印出每張卡片的 frontText
         for (Card card : manager.getCardList()) {
             System.out.println(card.getFrontText());
+            System.out.println(card.getImageIcon());
         }
     }
 }

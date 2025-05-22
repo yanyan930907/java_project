@@ -19,13 +19,13 @@ public class Card {
     }
 
     public void setFrontText(String text){ this.frontText = text; }
-    public void setImage(String imagePath) { this.imagePath = imagePath; }
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
     public void setBackHint(String hint) { this.backHint = hint; }
     public void setCategory(String category) { this.category = category; }
     public void setLinkedFilePath(String linkedFilePath) { this.linkedFilePath = linkedFilePath; }
 
     public String getFrontText() { return frontText; }
-    public String getImage() { return imagePath; }
+    public String getImagePath() { return imagePath; }
     public String getBackHint() { return backHint; }
     public String getCategory() { return category; }
     public String getLinkedFilePath() {return linkedFilePath; }
