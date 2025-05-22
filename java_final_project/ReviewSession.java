@@ -30,7 +30,5 @@ public class ReviewSession {
     public Date getTimestamp() {return timestamp; }
 
     
-
-    // getters & toString()
 }
 
