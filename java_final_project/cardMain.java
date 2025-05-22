@@ -1,6 +1,6 @@
-//package java_final_project;
+package card;
 
-public class Main {
+public class cardMain {
     public static void main(String[] args) {
         CardManager manager = new CardManager();
 

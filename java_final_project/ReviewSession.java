@@ -1,4 +1,4 @@
-package java_final_project;
+package review;
 import java.util.Date;
 
 public class ReviewSession {
