@@ -1,9 +1,15 @@
 package java_final_project;
 
+import java.util.concurrent.TimeUnit;
+
 public class TimerManager {
     private long startTime;
     private long pauseTime;
     private boolean running;
+
+    public TimerManager(){
+        
+    }
 
     public void start() { /* 初始化 startTime */ }
     public void pause() { /* 暫停，紀錄 pauseTime */ }

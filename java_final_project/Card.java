@@ -15,6 +15,11 @@ public class Card {
         this.category = category;
     }
 
+    public void setFrontText(String text){ this.frontText = text; }
+    public void setImage(ImageIcon image) { this.image = image; }
+    public void setBackHint(String hint) { this.backHint = hint; }
+    public void setCategory(String category) { this.category = category; }
+
     public String getFrontText() { return frontText; }
     public ImageIcon getImage() { return image; }
     public String getBackHint() { return backHint; }
