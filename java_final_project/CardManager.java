@@ -1,31 +1,39 @@
-package java_final_project;
-
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.FileWriter;
-import java.io.IOException;
+import java.io.FileReader;
+import java.util.List;
 import java.util.ArrayList;
+import java.lang.reflect.Type;
 
 public class CardManager {
-
-    private ArrayList<Card> cards;
-
-    public CardManager() {
-        cards = new ArrayList<>();
-    }
+    private List<Card> cardList = new ArrayList<>();
 
     public void addCard(Card card) {
-        cards.add(card);
+        cardList.add(card);
     }
 
-    public void saveToJson(String filePath) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter writer = new FileWriter(filePath)) {
-            gson.toJson(cards, writer);
-            System.out.println("成功儲存到：" + filePath);
-        } catch (IOException e) {
+    public void saveToJson(String filename) {
+        try (FileWriter writer = new FileWriter(filename)) {
+            Gson gson = new Gson();
+            gson.toJson(cardList, writer);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void loadFromJson(String filename) {
+        try (FileReader reader = new FileReader(filename)) {
+            Gson gson = new Gson();
+            Type cardListType = new TypeToken<ArrayList<Card>>(){}.getType();
+            cardList = gson.fromJson(reader, cardListType);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Card> getCardList() {
+        return cardList;
     }
 }
