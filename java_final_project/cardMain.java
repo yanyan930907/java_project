@@ -1,6 +1,6 @@
 package card;
 
-public class cardMain {
+public class CardMain {
     public static void main(String[] args) {
         CardManager manager = new CardManager();
 
