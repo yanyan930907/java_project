@@ -1,13 +1,21 @@
 package hug_fall_legs;
-
 public class TimerManager {
     private long startMillis;
     private long pauseMillis;
     private boolean running = false;
+    private boolean isRun = false;
 
     public void run() {
         if (!running) {
-            startMillis = System.currentTimeMillis();
+            if (!isRun) {
+                // 第一次開始
+                startMillis = System.currentTimeMillis();
+            } else {
+                // 暫停後繼續：補上暫停時間
+                long pausedDuration = System.currentTimeMillis() - pauseMillis;
+                startMillis += pausedDuration;
+            }
+            isRun = true;
             running = true;
         }
     }
@@ -24,6 +32,7 @@ public class TimerManager {
             pauseMillis = System.currentTimeMillis();
             running = false;
         }
+        isRun = false;
         return convertMillisToTime(pauseMillis - startMillis);
     }
 
@@ -42,5 +51,12 @@ public class TimerManager {
         int minute = (totalSeconds % 3600) / 60;
         int second = totalSeconds % 60;
         return new Time(hour, minute, second);
+    }
+
+    public void reset() {
+        startMillis = 0;
+        pauseMillis = 0;
+        running = false;
+        isRun = false;
     }
 }

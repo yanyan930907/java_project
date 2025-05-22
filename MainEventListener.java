@@ -11,6 +11,7 @@ public class MainEventListener implements ActionListener {
     private TimePanel timePanel;
     private TimerManager timerManager = new TimerManager();
     private Timer swingTimer;
+    private Time time=new Time();
 
     public MainEventListener(ButtonPanel buttonPanel, TimePanel timePanel) {
         this.buttonPanel = buttonPanel;
@@ -34,8 +35,9 @@ public class MainEventListener implements ActionListener {
            
         } else if (source == timePanel.setTimeButton) {
             // 設定時間邏輯
-            System.out.println("設定時間被按下");
+            System.out.println("開始計時被按下");
             timerManager.run();
+            
         } else if (source == buttonPanel.statisticButton) {
             // 統計資料邏輯
             System.out.println("統計資料被按下");
@@ -50,10 +52,10 @@ public class MainEventListener implements ActionListener {
             timerManager.pause();
         }
         else if (source == timePanel.recordButton) {
-            // 暫停時間邏輯
+            // 結束時間邏輯
             System.out.println("結束時間被按下");
             timerManager.pause();
-            Time time = new Time();
+            time = new Time();
             timePanel.updateTime(time);
         }
         else if (source == buttonPanel.allDataButton) {
