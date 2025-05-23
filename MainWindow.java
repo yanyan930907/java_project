@@ -6,14 +6,15 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 // 主視窗類別，只負責組合其他元件
-public class MainWindow extends JFrame {
+public class MainWindow extends JPanel {
 
     private ButtonPanel buttonPanel;
     private TimePanel timePanel;
     private JLabel titleLabel;
+    private testmainMadeBy13 parent;
 
-    public MainWindow() {
-        super("hug_fall_legs");
+    public MainWindow(testmainMadeBy13 parent) {
+        this.parent = parent;
 
         // 設定 Nimbus Look and Feel
         try {
@@ -32,23 +33,16 @@ public class MainWindow extends JFrame {
         add(titleLabel, BorderLayout.NORTH);
 
         // 按鈕面板
-        buttonPanel = new ButtonPanel();
+        buttonPanel = new ButtonPanel(parent);
         add(buttonPanel, BorderLayout.CENTER);
 
         // 時間面板
         timePanel = new TimePanel();
         add(timePanel, BorderLayout.SOUTH);
 
-        // 主視窗設定
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setVisible(true);
-
         // 將事件監聽器注入（讓事件可以反應到不同元件）
-        MainEventListener handler = new MainEventListener(buttonPanel, timePanel);
-        buttonPanel.setActionListener(handler);
-        timePanel.setActionListener(handler);
+        //MainEventListener handler = new MainEventListener(buttonPanel, timePanel);
+        //buttonPanel.setActionListener(handler);
+        //timePanel.setActionListener(handler);
     }
 }

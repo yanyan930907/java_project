@@ -1,30 +1,30 @@
-package hug_fall_legs;
+/*package hug_fall_legs;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-// 事件監聽器分離成獨立類別
+
 public class MainEventListener implements ActionListener {
 
     private ButtonPanel buttonPanel;
     private TimePanel timePanel;
-    private TimerManager timerManager = new TimerManager();
-    private Timer swingTimer;
+    //private TimerManager timerManager = new TimerManager();
+    //private Timer swingTimer;
 
     public MainEventListener(ButtonPanel buttonPanel, TimePanel timePanel) {
         this.buttonPanel = buttonPanel;
         this.timePanel = timePanel;
 
         // 每秒刷新一次畫面上的時間顯示
-        swingTimer = new Timer(1000, e -> {
+        /*swingTimer = new Timer(100, e -> {
             if (timerManager.isRunning()) {
                 Time time = timerManager.getElapsedTime();
                 timePanel.updateTime(time);
             }
         });
-        swingTimer.start();
-    }
+        swingTimer.start();*/
+    /*}
 
     @Override
     public void actionPerformed(ActionEvent event) {
@@ -58,4 +58,4 @@ public class MainEventListener implements ActionListener {
         }
     }
    
-}
+}*/

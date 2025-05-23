@@ -1,10 +1,10 @@
-package review;
+package hug_fall_legs;
 
 import java.util.ArrayList;
 
 public class ReviewStatistics {
     private ArrayList<ReviewSession> statistic; // session統計
-    
+    public ReviewStatistics() { statistic = new ArrayList<>(); }
 
     public void addSession(ReviewSession session) {
         // 加總到對應的 subject 與 date
