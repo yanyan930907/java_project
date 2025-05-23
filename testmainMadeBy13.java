@@ -9,6 +9,7 @@ public class testmainMadeBy13 extends JFrame {
 
     private MainWindow mainWindow;
     private statisticWindow statisticWindow;
+    private AllDataWindow allDataWindow;
 
     public testmainMadeBy13() {
         setTitle("GUI 切換範例");
@@ -23,9 +24,11 @@ public class testmainMadeBy13 extends JFrame {
         // 初始化子畫面並傳入主 frame 作為參考
         statisticWindow = new statisticWindow(this);
         mainWindow= new MainWindow(this);
+        allDataWindow=new AllDataWindow(this);
 
         cardPanel.add(mainWindow, "main");
         cardPanel.add(statisticWindow, "statistic");
+        cardPanel.add(allDataWindow, "allData");
 
 
         add(cardPanel);
@@ -39,6 +42,10 @@ public class testmainMadeBy13 extends JFrame {
     public void showStatistic(){
         System.out.println("showStatistic");
         cardLayout.show(cardPanel, "statistic");
+    }
+    public void showAllDataWindow(){
+        System.out.println("showAllDataWindow");
+        cardLayout.show(cardPanel, "allData");
     }
 
     // 切換畫面用的方法

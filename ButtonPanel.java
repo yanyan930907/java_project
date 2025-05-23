@@ -38,13 +38,31 @@ public class ButtonPanel extends JPanel {
             btn.setPreferredSize(new Dimension(140, 50));
             add(btn);
         }
-        statisticButton.addActionListener(e -> parent.showStatistic());
-    }
-
-    public void setActionListener(ActionListener listener) {
+        ButtonPanelListener listener = new ButtonPanelListener();
         allCardsButton.addActionListener(listener);
         statisticButton.addActionListener(listener);
         allDataButton.addActionListener(listener);
         errorButton.addActionListener(listener);
+
+    }
+    private class ButtonPanelListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Object source = e.getSource();
+            if (source == allCardsButton) {
+                System.out.println("全部卡片被按下");
+            }
+            else if (source == statisticButton) {
+                System.out.println("統計資料被按下");
+                parent.showStatistic();
+            }
+            else if (source == errorButton) {
+                System.out.println("錯誤整理被按下");
+            }
+            else if (source == allDataButton) {
+                System.out.println("所有資料被按下");
+                parent.showAllDataWindow();
+            }
+        }
     }
 }

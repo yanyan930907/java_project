@@ -40,11 +40,9 @@ public class MainWindow extends JPanel {
         timePanel = new TimePanel();
         add(timePanel, BorderLayout.SOUTH);
 
-
-
         // 將事件監聽器注入（讓事件可以反應到不同元件）
-        MainEventListener handler = new MainEventListener(buttonPanel, timePanel);
-        buttonPanel.setActionListener(handler);
-        timePanel.setActionListener(handler);
+        //MainEventListener handler = new MainEventListener(buttonPanel, timePanel);
+        //buttonPanel.setActionListener(handler);
+        //timePanel.setActionListener(handler);
     }
 }
