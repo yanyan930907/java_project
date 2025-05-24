@@ -6,12 +6,13 @@ import java.awt.*;
 import java.util.Arrays;
 
 public class AllCardWindow extends JPanel {
-    private JPanel topPanel, titlePanel, categoryPanel , cardpPanel , hintPanel;
+    private JPanel topPanel, titlePanel, categoryPanel , cardpPanel, leftPanel, rightPanel , hintPanel;
     private JLabel titleLabel , cardLabel, hintLabel;
-    private JButton backButton, addButton, lastButton, nexButton, hintButton;
+    private JButton backButton, addButton, leftButton, rightButton, hintButton;
     private testmainMadeBy13 parent;
     private String[] subjects = {"全部","電腦網路","演算法","Java","Verilog"};
     private JComboBox<String> categoryComboBox;
+    private JTextField hintField;
 
     //private int[] duration = {1, 3, 4, 5};
 
@@ -21,7 +22,6 @@ public class AllCardWindow extends JPanel {
         setLayout(new BorderLayout());
 
         //  top
-        Dimension tinySize = new Dimension(100, 5);
         backButton = new JButton("回到前頁");
         titleLabel = new JLabel("Your Cards ");
         addButton = new JButton("新增卡片");
@@ -51,22 +51,34 @@ public class AllCardWindow extends JPanel {
         topPanel.add(titlePanel);
         topPanel.add(categoryPanel);
         //  Card
-        lastButton = new JButton("👈");
-        nexButton = new JButton("👉");
+        leftButton = new JButton("👈");
+        leftButton.setPreferredSize(new Dimension(40, 70));
+        leftPanel = new JPanel(new GridBagLayout());
+        leftPanel.add(leftButton);
+        rightButton = new JButton("👉");
+        rightButton.setPreferredSize(new Dimension(40, 70));
+        rightPanel = new JPanel(new GridBagLayout());
+        rightPanel.add(rightButton);
+        
         cardLabel = new JLabel("card");
         cardLabel.setPreferredSize(new Dimension(300, 200)); // 控制Card大小
 
         cardpPanel = new JPanel(new BorderLayout());
-        cardpPanel.add(lastButton,BorderLayout.WEST);
-        cardpPanel.add(nexButton,BorderLayout.EAST);
+        cardpPanel.add(leftPanel,BorderLayout.WEST);
         cardpPanel.add(cardLabel,BorderLayout.CENTER);
+        cardpPanel.add(rightPanel,BorderLayout.EAST);
+        
+        
 
         //  hint
-        hintLabel = new JLabel("***");
+        //hintLabel = new JLabel("***");
         hintButton = new JButton("提示");
+        hintField = new JTextField("* * * * * * * * * * * * * *");
+        hintField.setEditable(false);
+        //hintField.setVisible(false);
 
         hintPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        hintPanel.add(hintLabel);
+        hintPanel.add(hintField);
         hintPanel.add(hintButton);
 
         // 加panel
