@@ -51,13 +51,15 @@ public class ButtonPanel extends JPanel {
             Object source = e.getSource();
             if (source == allCardsButton) {
                 System.out.println("全部卡片被按下");
+                parent.showAllCardWindow();
             }
             else if (source == statisticButton) {
                 System.out.println("統計資料被按下");
-                parent.showStatistic();
+                parent.showStatisticWindow();
             }
             else if (source == errorButton) {
                 System.out.println("錯誤整理被按下");
+                parent.showErrorWindow();
             }
             else if (source == allDataButton) {
                 System.out.println("所有資料被按下");

@@ -6,11 +6,13 @@ import java.io.File;
 
 // 主視窗類別，只負責組合其他元件
 public class AllDataWindow extends JPanel {
-
+    private JPanel top;
+    private JButton backButton;
     private testmainMadeBy13 parent;
 
     public AllDataWindow(testmainMadeBy13 parent) {
         this.parent = parent;
+        System.out.println("切換到所有資料頁面");
 
         // 設定 Nimbus Look and Feel
         try {
@@ -44,8 +46,13 @@ public class AllDataWindow extends JPanel {
         JLabel titleLabel = new JLabel("allData 資料夾內容：");
         JList<String> fileList = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(fileList);
-
-        add(titleLabel, BorderLayout.NORTH);
+        scrollPane.setPreferredSize(new Dimension(300, 200));
+        backButton = new JButton("回到前頁");
+        top = new JPanel(new FlowLayout());
+        top.add(backButton);
+        backButton.addActionListener(e -> parent.showMain());
+        top.add(titleLabel);
+        add(top, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
     }
 }
