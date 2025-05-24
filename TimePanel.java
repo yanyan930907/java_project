@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 // 時間區面板
 public class TimePanel extends JPanel {
 
+    private TimerManager timerManager = new TimerManager();
+    private Timer swingTimer;
     public JLabel hoursLabel;
     public JLabel minutesLabel;
     public JLabel secondsLabel;
@@ -60,12 +62,39 @@ public class TimePanel extends JPanel {
         add(setTimeButton);
         add(stopTimeButton);
         add(recordButton);
-    }
 
-    public void setActionListener(ActionListener listener) {
+        TimePanelListener listener = new TimePanelListener();
         setTimeButton.addActionListener(listener);
         stopTimeButton.addActionListener(listener);
         recordButton.addActionListener(listener);
+
+        swingTimer = new Timer(100, e -> {
+            if (timerManager.isRunning()) {
+                Time time = timerManager.getElapsedTime();
+                updateTime(time);
+            }
+        });
+        swingTimer.start();
+    }
+    private class TimePanelListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Object source = e.getSource();
+            if (source == setTimeButton) {
+                System.out.println("設定時間被按下");
+                timerManager.run();
+            }
+            else if (source == stopTimeButton) {
+                System.out.println("暫停時間被按下");
+                timerManager.pause();
+            }
+            else if (source == recordButton) {
+                System.out.println("結束時間被按下");
+                timerManager.stop();
+                Time zeroTime = new Time(0, 0, 0);
+                updateTime(zeroTime);
+            }
+        }
     }
     public void updateTime(Time time) {
         hoursLabel.setText(String.format("%02d", time.getHour()));

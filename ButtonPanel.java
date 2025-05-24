@@ -39,6 +39,10 @@ public class ButtonPanel extends JPanel {
             add(btn);
         }
         statisticButton.addActionListener(e -> parent.showStatistic());
+        errorButton.addActionListener(e -> parent.showError());
+        allDataButton.addActionListener(e -> parent.showAllData());
+        allCardsButton.addActionListener(e->parent.showAllCard());
+
     }
 
     public void setActionListener(ActionListener listener) {

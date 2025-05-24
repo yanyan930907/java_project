@@ -11,7 +11,7 @@ public class testmainMadeBy13 extends JFrame {
     private statisticWindow statisticWindow;
 
     public testmainMadeBy13() {
-        setTitle("GUI 切換範例");
+        setTitle("hug_fall_legs");
         setSize(800, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -21,11 +21,13 @@ public class testmainMadeBy13 extends JFrame {
         cardPanel = new JPanel(cardLayout);
 
         // 初始化子畫面並傳入主 frame 作為參考
-        statisticWindow = new statisticWindow(this);
-        mainWindow= new MainWindow(this);
 
-        cardPanel.add(mainWindow, "main");
-        cardPanel.add(statisticWindow, "statistic");
+        cardPanel.add(new MainWindow(this), "main");
+        cardPanel.add(new statisticWindow(this), "statistic");
+        cardPanel.add(new ErrorCollectWindow(this), "error");
+        cardPanel.add(new AllCardWindow(this), "allCard");
+        cardPanel.add(new AllDataWindow(this), "allData");
+
 
 
         add(cardPanel);
@@ -36,9 +38,22 @@ public class testmainMadeBy13 extends JFrame {
     public void showMain(){
         cardLayout.show(cardPanel, "main");
     }
+
     public void showStatistic(){
         System.out.println("showStatistic");
         cardLayout.show(cardPanel, "statistic");
+    }
+    public void showError(){
+        System.out.println("showError");
+        cardLayout.show(cardPanel, "error");
+    }
+    public void showAllCard(){
+        System.out.println("showAllCard");
+        cardLayout.show(cardPanel, "allCard");
+    }
+    public void showAllData(){
+        System.out.println("showAllData");
+        cardLayout.show(cardPanel, "allData");
     }
 
     // 切換畫面用的方法

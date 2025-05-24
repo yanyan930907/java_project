@@ -16,7 +16,7 @@ public class CardManager {
         cardList.add(card);
     }
 
-    public void saveToJson(String filename) {
+    public void saveToJson(String filename) {   // 存Card List成json
         try (FileWriter writer = new FileWriter(filename)) {
             Gson gson = new Gson();
             gson.toJson(cardList, writer);
@@ -25,7 +25,7 @@ public class CardManager {
         }
     }
 
-    public void loadFromJson(String filename) {
+    public void loadFromJson(String filename) { // 將json還原成Card List
         try (FileReader reader = new FileReader(filename)) {
             Gson gson = new Gson();
             Type cardListType = new TypeToken<ArrayList<Card>>(){}.getType();
