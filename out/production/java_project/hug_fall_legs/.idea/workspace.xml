@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d8e56e-99a8-4ab0-a1f6-c312c6bb6835" name="Changes" comment="" />
+    <list default="true" id="3dce2017-dfd7-426d-b2b6-b2eb55622b3c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/java_final_project/StorageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/java_final_project/StorageManager.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,27 +22,60 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2xRQg8B1wZ1wrHgRbaH15dqvLcg" />
+=======
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2xRQjOmRtC49lS66HpVgcHeRrWj" />
+>>>>>>> Stashed changes
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.StatisticalSubWindow.executor": "Run",
     "Application.runMainWindow.executor": "Run",
+<<<<<<< Updated upstream
     "Application.testmainMadeBy13.executor": "Run",
+=======
+    "Application.test.executor": "Run",
+>>>>>>> Stashed changes
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Ming/Desktop/學校/大二下/java/java_project"
+    "last_opened_file_path": "C:/Users/eric/Desktop/test/JAVA_FINAL_PROJECT/java_project"
   }
 }]]></component>
+<<<<<<< Updated upstream
   <component name="RunManager" selected="Application.testmainMadeBy13">
+=======
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="hug_fall_legs.java_final_project" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.runMainWindow">
+    <configuration name="StatisticalSubWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="hug_fall_legs.StatisticalSubWindow" />
+      <module name="java_project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hug_fall_legs.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+>>>>>>> Stashed changes
     <configuration name="runMainWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="hug_fall_legs.runMainWindow" />
       <module name="java_project" />
@@ -54,6 +89,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< Updated upstream
     <configuration name="testmainMadeBy13" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="hug_fall_legs.testmainMadeBy13" />
       <module name="java_project" />
@@ -63,6 +99,11 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+=======
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test" />
+      <module name="java_project" />
+>>>>>>> Stashed changes
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -71,16 +112,18 @@
       <list>
         <item itemvalue="Application.testmainMadeBy13" />
         <item itemvalue="Application.runMainWindow" />
+        <item itemvalue="Application.test" />
+        <item itemvalue="Application.StatisticalSubWindow" />
       </list>
     </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="19d8e56e-99a8-4ab0-a1f6-c312c6bb6835" name="Changes" comment="" />
-      <created>1747898514832</created>
+      <changelist id="3dce2017-dfd7-426d-b2b6-b2eb55622b3c" name="Changes" comment="" />
+      <created>1747898540703</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1747898514832</updated>
+      <updated>1747898540703</updated>
     </task>
     <servers />
   </component>
