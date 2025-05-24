@@ -1,34 +1,51 @@
 package hug_fall_legs;
-import javax.swing.*;
-import java.awt.*;
-import java.util.Arrays;
 
+import java.awt.*;
+import javax.swing.*;
+import java.io.File;
+
+// 主視窗類別，只負責組合其他元件
 public class AllDataWindow extends JPanel {
-    private JPanel top;
-    private JLabel titleLabel;
-    private JButton backButton;
+
     private testmainMadeBy13 parent;
 
-    private int[] duration = {0, 1, 2, 3, 4, 5};
-
     public AllDataWindow(testmainMadeBy13 parent) {
-        System.out.println("切換到所有資料頁面");
         this.parent = parent;
-        setLayout(new GridLayout(2, 1, 10, 10));
 
-        backButton = new JButton("回到前頁");
-        titleLabel = new JLabel("All Data");
-        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
-        titleLabel.setForeground(new Color(30, 60, 90));
+        // 設定 Nimbus Look and Feel
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            System.err.println("無法載入 Nimbus LookAndFeel");
+        }
 
-        top = new JPanel(new BorderLayout(10, 10));
-        top.add(backButton, BorderLayout.WEST);
-        top.add(titleLabel, BorderLayout.CENTER);
+        setLayout(new BorderLayout(10, 10));
 
-        add(top);
-        add(new JLabel(Arrays.toString(duration), JLabel.CENTER));
+        // 使用相對路徑，指向同一目錄下的 allData 資料夾
+        String folderPath = "allData";
 
-        backButton.addActionListener(e -> parent.showMain());
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        File folder = new File(folderPath);
+
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    listModel.addElement(file.getName());
+                }
+            } else {
+                listModel.addElement("無法讀取資料夾內容");
+            }
+        } else {
+            listModel.addElement("找不到 allData 資料夾");
+        }
+
+        // 建立元件並加入視圖
+        JLabel titleLabel = new JLabel("allData 資料夾內容：");
+        JList<String> fileList = new JList<>(listModel);
+        JScrollPane scrollPane = new JScrollPane(fileList);
+
+        add(titleLabel, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
     }
 }

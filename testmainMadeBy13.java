@@ -9,9 +9,10 @@ public class testmainMadeBy13 extends JFrame {
 
     private MainWindow mainWindow;
     private statisticWindow statisticWindow;
+    private AllDataWindow allDataWindow;
 
     public testmainMadeBy13() {
-        setTitle("hug_fall_legs");
+        setTitle("GUI 切換範例");
         setSize(800, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -21,13 +22,13 @@ public class testmainMadeBy13 extends JFrame {
         cardPanel = new JPanel(cardLayout);
 
         // 初始化子畫面並傳入主 frame 作為參考
+        statisticWindow = new statisticWindow(this);
+        mainWindow= new MainWindow(this);
+        allDataWindow=new AllDataWindow(this);
 
-        cardPanel.add(new MainWindow(this), "main");
-        cardPanel.add(new statisticWindow(this), "statistic");
-        cardPanel.add(new ErrorCollectWindow(this), "error");
-        cardPanel.add(new AllCardWindow(this), "allCard");
-        cardPanel.add(new AllDataWindow(this), "allData");
-
+        cardPanel.add(mainWindow, "main");
+        cardPanel.add(statisticWindow, "statistic");
+        cardPanel.add(allDataWindow, "allData");
 
 
         add(cardPanel);
@@ -38,21 +39,12 @@ public class testmainMadeBy13 extends JFrame {
     public void showMain(){
         cardLayout.show(cardPanel, "main");
     }
-
     public void showStatistic(){
         System.out.println("showStatistic");
         cardLayout.show(cardPanel, "statistic");
     }
-    public void showError(){
-        System.out.println("showError");
-        cardLayout.show(cardPanel, "error");
-    }
-    public void showAllCard(){
-        System.out.println("showAllCard");
-        cardLayout.show(cardPanel, "allCard");
-    }
-    public void showAllData(){
-        System.out.println("showAllData");
+    public void showAllDataWindow(){
+        System.out.println("showAllDataWindow");
         cardLayout.show(cardPanel, "allData");
     }
 
