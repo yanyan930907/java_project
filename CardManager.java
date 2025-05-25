@@ -1,4 +1,4 @@
-package card;
+package hug_fall_legs;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

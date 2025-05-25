@@ -1,5 +1,8 @@
 package card;
 
+import Card;
+import CardManager;
+
 public class CardMain {
     public static void main(String[] args) {
         CardManager manager = new CardManager();

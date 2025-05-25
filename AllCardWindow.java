@@ -2,17 +2,23 @@
 package hug_fall_legs;
 
 import javax.swing.*;
+
+
 import java.awt.*;
 import java.util.Arrays;
+import java_final_project.*;
 
 public class AllCardWindow extends JPanel {
-    private JPanel topPanel, titlePanel, categoryPanel , cardpPanel, leftPanel, rightPanel , hintPanel;
-    private JLabel titleLabel , cardLabel, hintLabel;
+    private JPanel topPanel, titlePanel, categoryPanel, midPanel, leftPanel, rightPanel , hintPanel;
+    private JLabel titleLabel , hintLabel;
     private JButton backButton, addButton, leftButton, rightButton, hintButton;
     private testmainMadeBy13 parent;
     private String[] subjects = {"全部","電腦網路","演算法","Java","Verilog"};
     private JComboBox<String> categoryComboBox;
     private JTextField hintField;
+    private CardManager cardManager = new CardManager();
+    private CardDisplayPanel cardPanel;
+    private int currentCardIndex = 0; // 現在顯示哪張Card
 
     //private int[] duration = {1, 3, 4, 5};
 
@@ -59,14 +65,22 @@ public class AllCardWindow extends JPanel {
         rightButton.setPreferredSize(new Dimension(40, 70));
         rightPanel = new JPanel(new GridBagLayout());
         rightPanel.add(rightButton);
-        
+        /*
         cardLabel = new JLabel("card");
         cardLabel.setPreferredSize(new Dimension(300, 200)); // 控制Card大小
+        */
+        cardManager.loadFromJson("card.json");
+        cardPanel = new CardDisplayPanel();
+        
+        if (!cardManager.getCardList().isEmpty()){  // CardList 中有存卡片
+            cardPanel.updateCard(cardManager.getCardList().get(currentCardIndex));
+        }
 
-        cardpPanel = new JPanel(new BorderLayout());
-        cardpPanel.add(leftPanel,BorderLayout.WEST);
-        cardpPanel.add(cardLabel,BorderLayout.CENTER);
-        cardpPanel.add(rightPanel,BorderLayout.EAST);
+
+        midPanel = new JPanel(new BorderLayout());
+        midPanel.add(leftPanel,BorderLayout.WEST);
+        midPanel.add(cardPanel,BorderLayout.CENTER);
+        midPanel.add(rightPanel,BorderLayout.EAST);
         
         
 
@@ -83,11 +97,16 @@ public class AllCardWindow extends JPanel {
 
         // 加panel
         add(topPanel,BorderLayout.NORTH);
-        add(cardpPanel,BorderLayout.CENTER);
+        add(midPanel,BorderLayout.CENTER);
         add(hintPanel,BorderLayout.SOUTH);
         //add(new JLabel(Arrays.toString(duration), JLabel.CENTER));
         // 返回首頁
         backButton.addActionListener(e -> parent.showMain());
+        // 新增卡片
+        addButton.addActionListener(e -> {
+            A
+        });
+
         // 顯示不同科目的卡片
         categoryComboBox.addActionListener(e -> {
             String selected = (String) categoryComboBox.getSelectedItem();

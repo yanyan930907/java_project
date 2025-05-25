@@ -1,4 +1,4 @@
-package card;
+package hug_fall_legs;
 
 import javax.swing.ImageIcon;
 
