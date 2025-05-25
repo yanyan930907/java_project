@@ -6,7 +6,6 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.util.Arrays;
-import java_final_project.*;
 
 public class AllCardWindow extends JPanel {
     private JPanel topPanel, titlePanel, categoryPanel, midPanel, leftPanel, rightPanel , hintPanel;
@@ -37,6 +36,7 @@ public class AllCardWindow extends JPanel {
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         titleLabel.setForeground(new Color(30, 60, 90));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);   // 將"Your Card"置中Label
+
 
         titlePanel = new JPanel(new BorderLayout());
         titlePanel.add(backButton,BorderLayout.WEST);
@@ -103,9 +103,8 @@ public class AllCardWindow extends JPanel {
         // 返回首頁
         backButton.addActionListener(e -> parent.showMain());
         // 新增卡片
-        addButton.addActionListener(e -> {
-            A
-        });
+        
+        
 
         // 顯示不同科目的卡片
         categoryComboBox.addActionListener(e -> {
@@ -113,5 +112,25 @@ public class AllCardWindow extends JPanel {
             // 根據 selected 進行卡片顯示更新
         });
 
+        
+
     }
+    public void addCard() {
+        
+    }
+
+    private JFrame parentFrame() {
+        return (JFrame) SwingUtilities.getWindowAncestor(this);
+    }
+
+
+
+    // 更新卡片
+    public void refreshCardDisplay() {
+        if (!cardManager.getCardList().isEmpty()) {
+            currentCardIndex = cardManager.getCardList().size() - 1;
+            cardPanel.updateCard(cardManager.getCardList().get(currentCardIndex));
+        }
+    }
+
 }

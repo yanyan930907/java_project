@@ -1,4 +1,4 @@
-package card;
+/*package card;
 
 import Card;
 import CardManager;
@@ -25,3 +25,4 @@ public class CardMain {
         }
     }
 }
+*/
