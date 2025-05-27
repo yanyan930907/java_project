@@ -15,7 +15,7 @@ public class AddCardDialog extends JDialog{
     private JTextField frontTextField, imagePathField, subjectField, hintField,filePathField;
     private CardManager manager;
     private AllCardWindow cardWindow;
-    private String folderPath = "Picture";
+    private String folderPath;
     private String imageName ="";
     private ArrayList<String> subjectsList = new ArrayList<>();
     private JComboBox<String> categoryComboBox;
@@ -176,6 +176,7 @@ public class AddCardDialog extends JDialog{
 
     }
     private void addImageFile() {
+        folderPath = "Picture";
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("選擇要加入的檔案");
         int result = fileChooser.showOpenDialog(this);
@@ -234,6 +235,7 @@ public class AddCardDialog extends JDialog{
     }
     private void refreshFileList() {
         listModel.clear();
+        folderPath = "alldata";
         File folder = new File(folderPath);
         if (folder.isDirectory()) {
             File[] files = folder.listFiles();
