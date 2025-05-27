@@ -20,6 +20,7 @@ public class AllCardWindow extends JPanel {
     private int currentCardIndex = 0; // 現在顯示哪張Card
     private JRadioButton forgotButton, rememberButton;
     private ButtonGroup forgotOptions;
+    private JPanel backPanel, addPanel;
 
     //private int[] duration = {1, 3, 4, 5};
 
@@ -33,6 +34,14 @@ public class AllCardWindow extends JPanel {
         titleLabel = new JLabel("Your Cards ");
         addButton = new JButton("新增卡片");
 
+        // 按鍵美編
+        backButton.setPreferredSize(new Dimension(100, 50));
+        backPanel = new JPanel(new GridBagLayout());
+        backPanel.add(backButton);
+        addButton.setPreferredSize(new Dimension(100, 50));
+        addPanel = new JPanel(new GridBagLayout());
+        addPanel.add(addButton);
+
             //  標題美編
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
@@ -41,9 +50,9 @@ public class AllCardWindow extends JPanel {
 
 
         titlePanel = new JPanel(new BorderLayout());
-        titlePanel.add(backButton,BorderLayout.WEST);
+        titlePanel.add(backPanel,BorderLayout.WEST);
         titlePanel.add(titleLabel,BorderLayout.CENTER);
-        titlePanel.add(addButton,BorderLayout.EAST);
+        titlePanel.add(addPanel,BorderLayout.EAST);
         //Button.setPreferredSize(new Dimension(150, 30)); // 寬200，高30
 
         //  category
@@ -53,7 +62,7 @@ public class AllCardWindow extends JPanel {
 
         // forgot 單選
         forgotButton = new JRadioButton("這啥??",false);
-        rememberButton = new JRadioButton("老熟了",true);
+        rememberButton = new JRadioButton("老熟了!!",true);
         forgotOptions = new ButtonGroup();
         forgotOptions.add(rememberButton);
         forgotOptions.add(forgotButton);
