@@ -1,1 +1,0 @@
-請使用runMainWindow來運行

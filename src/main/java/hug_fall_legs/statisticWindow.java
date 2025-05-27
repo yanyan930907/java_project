@@ -5,8 +5,8 @@ import java.awt.*;
 import java.util.Arrays;
 
 public class statisticWindow extends JPanel {
-    private JPanel upPanel, downPanel, topPanel, contentPanel, rowPanel;   // upPanel:上半, downPanel:下半, topPanel(在upPanel裡), contentPanel:顯示結果的表(在scrollPane裡), row(在contentPanel裡)
-    private JLabel titleLabel, pictureLabel;  // titleLabel:標題, pictureLabel:圖表(在upPanel裡)
+    private JPanel upPanel, downPanel, topPanel, contentPanel, rowPanel, chartPanel;   // upPanel:上半, downPanel:下半, topPanel(在upPanel裡), contentPanel:顯示結果的表(在scrollPane裡), row(在contentPanel裡)
+    private JLabel titleLabel;  // titleLabel:標題, pictureLabel:圖表(在upPanel裡)
     private JButton backButton;
     private String[] timeRange = {"全部","一天","一週","一月","一季"};
     private JComboBox<String> timeComboBox; // 下拉時間範圍選單
@@ -46,12 +46,13 @@ public class statisticWindow extends JPanel {
         topPanel.add(timeRangePanel,BorderLayout.EAST);
 
         // upPanel-pictureLabel
-        pictureLabel = new JLabel();
+        BarChartPanel bcp = new BarChartPanel();
+        chartPanel=bcp.createBarChartPanel("全部");
 
         // 加入upPanel元件
         upPanel = new JPanel(new BorderLayout());
         upPanel.add(topPanel,BorderLayout.NORTH);
-        upPanel.add(pictureLabel,BorderLayout.CENTER);
+        upPanel.add(chartPanel,BorderLayout.CENTER);
         
         // scrollPane、contentPanel、rowPanel, 統計表單
         contentPanel = new JPanel(); // 先創建 panel
