@@ -34,14 +34,14 @@ public class CardDisplayPanel  extends JPanel{
         frontTextLabel.setHorizontalAlignment(JLabel.CENTER);
 
         topPanel = new JPanel(new FlowLayout());
-        topPanel.add(frontTextLabel,FlowLayout.LEFT);
-        topPanel.add(subjectLabel,FlowLayout.RIGHT);
+        topPanel.add(frontTextLabel);
+        topPanel.add(subjectLabel);
 
         imagPanel = new JPanel(new FlowLayout());
-        imagPanel.add(imageIconLabel,FlowLayout.LEFT);
+        imagPanel.add(imageIconLabel);
 
         linkPanel = new JPanel(new FlowLayout());
-        linkPanel.add(filePathLabel,FlowLayout.RIGHT);
+        linkPanel.add(filePathLabel);
 
         add(topPanel,BorderLayout.NORTH);
         add(imageIconLabel,BorderLayout.CENTER);

@@ -15,7 +15,7 @@ public class AllCardWindow extends JPanel {
     private String[] subjects = {"全部","電腦網路","演算法","Java","Verilog"};
     private JComboBox<String> categoryComboBox;
     private JTextField hintField;
-    private CardManager cardManager = new CardManager();
+    //private CardManager cardManager = new CardManager();
     private CardDisplayPanel cardPanel;
     private int currentCardIndex = 0; // 現在顯示哪張Card
     private JRadioButton forgotButton, rememberButton;
@@ -81,12 +81,12 @@ public class AllCardWindow extends JPanel {
         cardLabel = new JLabel("card");
         cardLabel.setPreferredSize(new Dimension(300, 200)); // 控制Card大小
         */
-        cardManager.loadFromJson("card.json");
+        //cardManager.loadFromJson("cards.json");
         cardPanel = new CardDisplayPanel();
-        
+        /*
         if (!cardManager.getCardList().isEmpty()){  // CardList 中有存卡片
             cardPanel.updateCard(cardManager.getCardList().get(currentCardIndex));
-        }
+        }*/
 
 
         midPanel = new JPanel(new BorderLayout());
@@ -115,6 +115,10 @@ public class AllCardWindow extends JPanel {
         // 返回首頁
         backButton.addActionListener(e -> parent.showMain());
         // 新增卡片
+        addButton.addActionListener(e -> {
+            AddCardDialog addCardDialog = new AddCardDialog();
+            addCardDialog.setVisible(true);
+        });
         
         
 
@@ -137,12 +141,12 @@ public class AllCardWindow extends JPanel {
 
 
 
-    // 更新卡片
+    /* 更新卡片
     public void refreshCardDisplay() {
         if (!cardManager.getCardList().isEmpty()) {
             currentCardIndex = cardManager.getCardList().size() - 1;
             cardPanel.updateCard(cardManager.getCardList().get(currentCardIndex));
         }
-    }
+    }*/
 
 }
