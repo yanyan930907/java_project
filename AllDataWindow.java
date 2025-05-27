@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 public class AllDataWindow extends JPanel {
-    private JPanel top, bottom;
+    private JPanel top, bottom, backPanel;
     private JButton backButton, addButton, editButton, deleteButton, viewButton;;
     private testmainMadeBy13 parent;
     private JList<String> fileList;
@@ -37,12 +37,23 @@ public class AllDataWindow extends JPanel {
         refreshFileList(); // 讀取資料夾內容
 
         // 上方區塊
-        JLabel titleLabel = new JLabel("allData 資料夾內容：");
+        JLabel titleLabel = new JLabel("All Data           ");
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
+        titleLabel.setForeground(new Color(30, 60, 90));
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);   // 置中Label
         backButton = new JButton("回到前頁");
         backButton.addActionListener(e -> parent.showMain());
-        top = new JPanel(new FlowLayout());
-        top.add(backButton);
-        top.add(titleLabel);
+
+        backButton.setPreferredSize(new Dimension(100, 50));
+        backPanel = new JPanel(new GridBagLayout());
+        backPanel.add(backButton);
+
+        
+
+        top = new JPanel(new BorderLayout());
+        top.add(backPanel,BorderLayout.WEST);
+        top.add(titleLabel,BorderLayout.CENTER);
         add(top, BorderLayout.NORTH);
 
         // 中間檔案清單
@@ -60,7 +71,7 @@ public class AllDataWindow extends JPanel {
         bottom.add(new JLabel("查詢分類："));
         bottom.add(subjectComboBox);
 
-// 其他按鈕
+        // 其他按鈕
         addButton = new JButton("新增");
         editButton = new JButton("修改");
         deleteButton = new JButton("刪除");
