@@ -42,10 +42,12 @@ public class statisticWindow extends JPanel {
         upPanel.add(pictureLabel,BorderLayout.CENTER);
         
         // scrollPane、contentPanel、rowPanel, 統計表單
-        contentPanel = new JPanel(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel = new JPanel(); // 先創建 panel
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+
         // 模擬加 10 筆資料，每筆是三欄
         for (int i = 0; i < 10; i++) {
-            JPanel rowPanel = new JPanel(new GridLayout(1, 3, 10, 0)); // 三欄橫排
+            rowPanel = new JPanel(new GridLayout(1, 3, 10, 0)); // 三欄橫排
             rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60)); // 高度60，寬度撐滿
 
             rowPanel.add(new JTextField("類別 " + (i + 1)));
