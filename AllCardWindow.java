@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Arrays;
 
 public class AllCardWindow extends JPanel {
-    private JPanel topPanel, titlePanel, categoryPanel, midPanel, leftPanel, rightPanel , hintPanel;
+    private JPanel topPanel, titlePanel, categoryPanel, midPanel, leftPanel, rightPanel , hintPanel, forgotPanel;
     private JLabel titleLabel , hintLabel;
     private JButton backButton, addButton, leftButton, rightButton, hintButton;
     private testmainMadeBy13 parent;
@@ -18,6 +18,8 @@ public class AllCardWindow extends JPanel {
     private CardManager cardManager = new CardManager();
     private CardDisplayPanel cardPanel;
     private int currentCardIndex = 0; // 現在顯示哪張Card
+    private JRadioButton forgotButton, rememberButton;
+    private ButtonGroup forgotOptions;
 
     //private int[] duration = {1, 3, 4, 5};
 
@@ -49,9 +51,19 @@ public class AllCardWindow extends JPanel {
         categoryComboBox.setMaximumRowCount(4); // 一次顯示幾個
         categoryComboBox.setPreferredSize(new Dimension(150, 30));  // 設大小
 
+        // forgot 單選
+        forgotButton = new JRadioButton("這啥??",false);
+        rememberButton = new JRadioButton("老熟了",true);
+        forgotOptions = new ButtonGroup();
+        forgotOptions.add(rememberButton);
+        forgotOptions.add(forgotButton);
+        forgotPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        forgotPanel.add(rememberButton);
+        forgotPanel.add(forgotButton);
 
         categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         categoryPanel.add(categoryComboBox);
+        categoryPanel.add(forgotPanel);
 
         topPanel = new JPanel(new GridLayout(2,1));
         topPanel.add(titlePanel);

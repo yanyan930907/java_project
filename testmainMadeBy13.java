@@ -12,7 +12,7 @@ public class testmainMadeBy13 extends JFrame {
     private ErrorCollectWindow errorWindow;
 
     public testmainMadeBy13() {
-        setTitle("Hug_fall_lugs!!!!!");
+        setTitle("馬尚讀!!!!!");
         setSize(800, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
