@@ -8,6 +8,7 @@ public class Card {
     private String backHint;  // 背面提示
     private String category;  // 分類，例如：「錯題」
     private String linkedFilePath;  // 關聯檔案的路徑或URL
+    private boolean remember;   // 是否熟讀
 
     
     public Card(String frontText, String imagePath, String backHint, String category, String linkedFilePath) {
@@ -16,6 +17,7 @@ public class Card {
         this.backHint = backHint;
         this.category = category;
         this.linkedFilePath = linkedFilePath;
+        this.remember = false;
     }
 
     public void setFrontText(String text){ this.frontText = text; }
@@ -23,6 +25,7 @@ public class Card {
     public void setBackHint(String hint) { this.backHint = hint; }
     public void setCategory(String category) { this.category = category; }
     public void setLinkedFilePath(String linkedFilePath) { this.linkedFilePath = linkedFilePath; }
+    public void setRemember(boolean remember) { this.remember = remember; }
 
     public String getFrontText() { return frontText; }
     public String getImagePath() { return imagePath; }
@@ -35,8 +38,6 @@ public class Card {
         }
         return null;
     }
-    public void display(){  // 顯示卡片內容
-        
-    }
+    public boolean getRemember() { return remember; }
     
 }
