@@ -18,10 +18,15 @@ public class statisticWindow extends JPanel {
         System.out.println("切換到統計頁面");
         this.parent = parent;
         setLayout(new GridLayout(2, 1, 10, 10));
-        
+
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            System.err.println("無法載入 Nimbus LookAndFeel");
+        }
         // upPanel-topPanel,有backButton、titleLabel
         backButton = new JButton("回到前頁");
-        titleLabel = new JLabel("statistic");
+        titleLabel = new JLabel("statistic  ");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         titleLabel.setForeground(new Color(30, 60, 90));
@@ -60,12 +65,12 @@ public class statisticWindow extends JPanel {
 
         // 模擬加 10 筆資料，每筆是三欄
         for (int i = 0; i < 10; i++) {
-            rowPanel = new JPanel(new GridLayout(1, 3, 10, 0)); // 三欄橫排
-            rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80)); // 高度60，寬度撐滿
+            rowPanel = new JPanel(new GridLayout(1, 2, 5, 0)); // 2欄橫排
+            rowPanel.setPreferredSize(new Dimension(100, 50));
+            rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 75)); // 高度100，寬度撐滿
 
-            rowPanel.add(new JTextField("類別 " + (i + 1)));
-            rowPanel.add(new JTextField("心得內容 " + (i + 1)));
-            rowPanel.add(new JTextField("補充或圖片 " + (i + 1)));
+            rowPanel.add(new JTextField("科目 " + (i + 1)));
+            rowPanel.add(new JTextField("時長 " + (i + 1)));
 
             contentPanel.add(rowPanel);
             contentPanel.add(Box.createVerticalStrut(10)); // 每筆上下間距
