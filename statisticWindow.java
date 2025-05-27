@@ -45,14 +45,14 @@ public class statisticWindow extends JPanel {
         contentPanel = new JPanel(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         // 模擬加 10 筆資料，每筆是三欄
         for (int i = 0; i < 10; i++) {
-            JPanel row = new JPanel(new GridLayout(1, 3, 10, 0)); // 三欄橫排
-            row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60)); // 高度60，寬度撐滿
+            JPanel rowPanel = new JPanel(new GridLayout(1, 3, 10, 0)); // 三欄橫排
+            rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60)); // 高度60，寬度撐滿
 
-            row.add(new JTextField("類別 " + (i + 1)));
-            row.add(new JTextField("心得內容 " + (i + 1)));
-            row.add(new JTextField("補充或圖片 " + (i + 1)));
+            rowPanel.add(new JTextField("類別 " + (i + 1)));
+            rowPanel.add(new JTextField("心得內容 " + (i + 1)));
+            rowPanel.add(new JTextField("補充或圖片 " + (i + 1)));
 
-            contentPanel.add(row);
+            contentPanel.add(rowPanel);
             contentPanel.add(Box.createVerticalStrut(10)); // 每筆上下間距
         }
         scrollPane = new JScrollPane(contentPanel);
