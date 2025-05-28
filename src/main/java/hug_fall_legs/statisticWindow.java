@@ -103,11 +103,15 @@ public class statisticWindow extends JPanel {
         add(upPanel);
         add(downPanel);
 
-        // 讀取.txt的統計資料然後填入JTextField
-        ReviewStatistic stat = new ReviewStatistic("collectTime.txt");
-        stat.populateFields(titleFields, durationFields);
+        updateStatistic();
 
         
         backButton.addActionListener(e -> parent.showMain());
+    }
+
+    public void updateStatistic(){
+        // 讀取.txt的統計資料然後填入JTextField
+        ReviewStatistic stat = new ReviewStatistic("collectTime.txt");
+        stat.populateFields(titleFields, durationFields);
     }
 }

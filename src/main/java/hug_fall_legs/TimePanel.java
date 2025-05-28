@@ -94,7 +94,6 @@ public class TimePanel extends JPanel {
                 System.out.println("結束時間被按下");
                 timerManager.stop();
                 noteDialog = new SetNoteDialog();
-                noteDialog.setModal(true); // 讓 dialog 是「阻塞式」的，等輸入完才往下執行
                 noteDialog.setVisible(true);
                 String note = noteDialog.getNoteText();
                 DateFileWriter writer = new DateFileWriter("collectTime.txt");
