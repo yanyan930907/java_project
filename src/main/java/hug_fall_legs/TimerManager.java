@@ -76,7 +76,6 @@ public class TimerManager {
         int hours = totalSeconds / 3600;
         int minutes = (totalSeconds % 3600) / 60;
         int seconds = totalSeconds % 60;
-
         return new Time(hours, minutes, seconds);
     }
 }
