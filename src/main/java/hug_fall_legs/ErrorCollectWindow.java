@@ -125,8 +125,12 @@ public class ErrorCollectWindow extends JPanel {
         hintButton.addActionListener(e -> {
             System.out.println("提示");
             if (isOrignal[0]) {
+                FontMetrics ht = hintField.getFontMetrics(hintField.getFont());
+                hintField.setPreferredSize(new Dimension(ht.stringWidth(hintField.getText()),hintField.getHeight()));
+                hintField.setText("哈囉你好嗎?");
                 hintButton.setText("隱藏");
             } else {
+                hintField.setText("* * * * * * * * * * * * * *");
                 hintButton.setText("提示");
             }
             isOrignal[0] = !isOrignal[0];   // 按一次變一次
