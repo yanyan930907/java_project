@@ -76,12 +76,12 @@ public class statisticWindow extends JPanel {
             rowPanel.setPreferredSize(new Dimension(100, 50));
             rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 75));
 
-            JTextField notes = new JTextField();  // 改成空欄
+            JTextField notes = new JTextField();
             notes.setEditable(false);
             titleFields[i] = notes;  // 存進陣列
             rowPanel.add(notes);
 
-            JTextField duration = new JTextField();  // 改成空欄
+            JTextField duration = new JTextField();
             duration.setEditable(false);
             durationFields[i] = duration;  // 存進陣列
             rowPanel.add(duration);
@@ -103,7 +103,7 @@ public class statisticWindow extends JPanel {
         add(upPanel);
         add(downPanel);
 
-        // 讀取統計資料並填入 JTextField
+        // 讀取.txt的統計資料然後填入JTextField
         ReviewStatistic stat = new ReviewStatistic("collectTime.txt");
         stat.populateFields(titleFields, durationFields);
 
