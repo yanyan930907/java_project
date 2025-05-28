@@ -120,6 +120,19 @@ public class ErrorCollectWindow extends JPanel {
             // 根據 selected 進行卡片顯示更新
         });
 
+        // 顯示提示
+        final boolean[] isOrignal = {true};
+        hintButton.addActionListener(e -> {
+            System.out.println("提示");
+            if (isOrignal[0]) {
+                hintButton.setText("隱藏");
+            } else {
+                hintButton.setText("提示");
+            }
+            isOrignal[0] = !isOrignal[0];   // 按一次變一次
+
+        });
+
 
 
     }

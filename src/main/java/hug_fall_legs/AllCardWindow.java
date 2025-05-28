@@ -112,6 +112,8 @@ public class AllCardWindow extends JPanel {
         hintField.setEditable(false);
         //hintField.setVisible(false);
 
+
+
         hintPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         hintPanel.add(hintField);
         hintPanel.add(hintButton);
@@ -128,6 +130,7 @@ public class AllCardWindow extends JPanel {
             AddCardDialog addCardDialog = new AddCardDialog();
             addCardDialog.setVisible(true);
         });
+
         
         
 
@@ -136,7 +139,18 @@ public class AllCardWindow extends JPanel {
             String selected = (String) categoryComboBox.getSelectedItem();
             // 根據 selected 進行卡片顯示更新
         });
+        // 顯示提示
+        final boolean[] isOrignal = {true};
+        hintButton.addActionListener(e -> {
+            System.out.println("提示");
+            if (isOrignal[0]) {
+                hintButton.setText("隱藏");
+            } else {
+                hintButton.setText("提示");
+            }
+            isOrignal[0] = !isOrignal[0];   // 按一次變一次
 
+        });
         
 
     }
