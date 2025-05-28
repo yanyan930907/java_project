@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.time.LocalDate;
 
 // 時間區面板
 public class TimePanel extends JPanel {
@@ -16,6 +17,9 @@ public class TimePanel extends JPanel {
     JButton stopTimeButton;
     JButton setTimeButton;
     JButton recordButton;
+    LocalDate today = LocalDate.now(); // 取得今天日期
+    private int month = today.getMonthValue();  // 月份
+    private int day = today.getDayOfMonth();
 
     public TimePanel() {
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -93,6 +97,7 @@ public class TimePanel extends JPanel {
                 timerManager.stop();
                 Time zeroTime = new Time(0, 0, 0);
                 updateTime(zeroTime);
+
             }
         }
     }
