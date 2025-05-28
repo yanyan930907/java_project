@@ -67,7 +67,7 @@ public class statisticWindow extends JPanel {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
         // 模擬加 10 筆資料，每筆是三欄
-        int maxEntries = 10;
+        int maxEntries = 80;
         titleFields = new JTextField[maxEntries];
         durationFields = new JTextField[maxEntries];
 

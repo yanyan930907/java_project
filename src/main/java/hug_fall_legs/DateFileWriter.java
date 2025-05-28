@@ -3,6 +3,8 @@ package hug_fall_legs;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.io.BufferedWriter;
+
 
 public class DateFileWriter {
 
@@ -33,4 +35,21 @@ public class DateFileWriter {
             e.printStackTrace();
         }
     }
+
+    public void appendDateAndNote(Time time, String note) {
+        LocalDate today = LocalDate.now();
+        int month = today.getMonthValue();
+        int day = today.getDayOfMonth();
+        String line = month + "/" + day + " " + time.toString() + " " + note.trim() + "\n";
+
+        try (FileWriter fw = new FileWriter(filename, true)) {
+            fw.write(line);
+            System.out.println("寫入成功：" + line.trim());
+        } catch (IOException e) {
+            System.err.println("寫入檔案失敗");
+            e.printStackTrace();
+        }
+    }
+
+
 }

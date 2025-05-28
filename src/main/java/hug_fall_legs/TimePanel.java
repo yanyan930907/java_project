@@ -17,6 +17,7 @@ public class TimePanel extends JPanel {
     private JButton setTimeButton;
     private JButton recordButton;
     private Time nowTime;
+    private SetNoteDialog noteDialog;
 
     public TimePanel() {
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -92,10 +93,15 @@ public class TimePanel extends JPanel {
             else if (source == recordButton) {
                 System.out.println("結束時間被按下");
                 timerManager.stop();
+                noteDialog = new SetNoteDialog();
+                noteDialog.setModal(true); // 讓 dialog 是「阻塞式」的，等輸入完才往下執行
+                noteDialog.setVisible(true);
+                String note = noteDialog.getNoteText();
                 DateFileWriter writer = new DateFileWriter("collectTime.txt");
-                writer.appendDateToFile(nowTime);
+                writer.appendDateAndNote(nowTime,note);
                 Time zeroTime = new Time(0, 0, 0);
                 updateTime(zeroTime);
+
             }
         }
     }
