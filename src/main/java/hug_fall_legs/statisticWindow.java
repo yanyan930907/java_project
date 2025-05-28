@@ -13,6 +13,9 @@ public class statisticWindow extends JPanel {
     private JPanel timeRangePanel, backPanel;
     private testmainMadeBy13 parent;    // 主頁面
     private JScrollPane scrollPane; // 下拉表(在downPanel裡)
+    private JTextField[] titleFields;
+    private JTextField[] durationFields;
+
 
     public statisticWindow(testmainMadeBy13 parent) {
         System.out.println("切換到統計頁面");
@@ -64,17 +67,29 @@ public class statisticWindow extends JPanel {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
         // 模擬加 10 筆資料，每筆是三欄
-        for (int i = 0; i < 10; i++) {
-            rowPanel = new JPanel(new GridLayout(1, 2, 5, 0)); // 2欄橫排
-            rowPanel.setPreferredSize(new Dimension(100, 50));
-            rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 75)); // 高度100，寬度撐滿
+        int maxEntries = 10;
+        titleFields = new JTextField[maxEntries];
+        durationFields = new JTextField[maxEntries];
 
-            rowPanel.add(new JTextField("科目 " + (i + 1)));
-            rowPanel.add(new JTextField("時長 " + (i + 1)));
+        for (int i = 0; i < maxEntries; i++) {
+            rowPanel = new JPanel(new GridLayout(1, 2, 5, 0));
+            rowPanel.setPreferredSize(new Dimension(100, 50));
+            rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 75));
+
+            JTextField notes = new JTextField();  // 改成空欄
+            notes.setEditable(false);
+            titleFields[i] = notes;  // 存進陣列
+            rowPanel.add(notes);
+
+            JTextField duration = new JTextField();  // 改成空欄
+            duration.setEditable(false);
+            durationFields[i] = duration;  // 存進陣列
+            rowPanel.add(duration);
 
             contentPanel.add(rowPanel);
-            contentPanel.add(Box.createVerticalStrut(10)); // 每筆上下間距
+            contentPanel.add(Box.createVerticalStrut(10));
         }
+
         scrollPane = new JScrollPane(contentPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(200, 300));   // 畫面大小
@@ -88,6 +103,9 @@ public class statisticWindow extends JPanel {
         add(upPanel);
         add(downPanel);
 
+        // 讀取統計資料並填入 JTextField
+        ReviewStatistic stat = new ReviewStatistic("collectTime.txt");
+        stat.populateFields(titleFields, durationFields);
 
         
         backButton.addActionListener(e -> parent.showMain());

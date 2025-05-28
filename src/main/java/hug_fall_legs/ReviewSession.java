@@ -8,33 +8,30 @@ public class ReviewSession {
     private Time duration;  // 時長
 
     public ReviewSession(String collectTime) {
-        try (BufferedReader br = new BufferedReader(new FileReader(collectTime))) {
-            String line = br.readLine(); // 只讀一行
-            if (line != null) {
-                // 使用正則表達式找時間字串
-                Pattern pattern = Pattern.compile("\\b(\\d{2}):(\\d{2}):(\\d{2})\\b");
-                Matcher matcher = pattern.matcher(line);
+        try {
+            // 使用正則表示式找出時間（HH:mm:ss）
+            Pattern pattern = Pattern.compile("\\b(\\d{2}):(\\d{2}):(\\d{2})\\b");
+            Matcher matcher = pattern.matcher(collectTime);
 
-                if (matcher.find()) {
-                    int hour = Integer.parseInt(matcher.group(1));
-                    int minute = Integer.parseInt(matcher.group(2));
-                    int second = Integer.parseInt(matcher.group(3));
-                    this.duration = new Time(hour, minute, second);
+            if (matcher.find()) {
+                int hour = Integer.parseInt(matcher.group(1));
+                int minute = Integer.parseInt(matcher.group(2));
+                int second = Integer.parseInt(matcher.group(3));
+                this.duration = new Time(hour, minute, second);
 
-                    // title 是時間後面的文字
-                    int endIndex = matcher.end();
-                    this.title = line.substring(endIndex).trim();
-                } else {
-                    throw new IllegalArgumentException("格式錯誤：未找到 HH:mm:ss");
-                }
+                // 取出時間字串結束後的文字當作 title
+                int endIndex = matcher.end();
+                this.title = collectTime.substring(endIndex).trim();
             } else {
-                throw new IllegalArgumentException("檔案為空");
+                throw new IllegalArgumentException("格式錯誤：未找到 HH:mm:ss");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            this.title = "錯誤格式";
+            this.duration = new Time();
         }
-
     }
+
 
     public ReviewSession(String title, Time duration) {
         this.title = title;

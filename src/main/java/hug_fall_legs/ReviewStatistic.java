@@ -1,36 +1,33 @@
 package hug_fall_legs;
 
-import java.util.ArrayList;
+import java.util.*;
 import  java.io.*;
-import java.util.regex.*;
+import javax.swing.*;
 
 public class ReviewStatistic {
-    private ArrayList<ReviewSession> statistic; // session統計
+    JTextField[] titleFields;    // 讀書大綱
+    JTextField[] durationFields; // 時長
+    private List<ReviewSession> sessions; // session統計
 
-    public void loadSessionsFromFile(String filename) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+    public ReviewStatistic(String collectTime) {
+        sessions = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(collectTime))) {
             String line;
             while ((line = br.readLine()) != null) {
-                // 解析每一行的時間與標題
-                Pattern pattern = Pattern.compile("\\b(\\d{2}):(\\d{2}):(\\d{2})\\b");
-                Matcher matcher = pattern.matcher(line);
-
-                if (matcher.find()) {
-                    int hour = Integer.parseInt(matcher.group(1));
-                    int minute = Integer.parseInt(matcher.group(2));
-                    int second = Integer.parseInt(matcher.group(3));
-                    Time duration = new Time(hour, minute, second);
-                    String title = line.substring(matcher.end()).trim();
-                    statistic.add(new ReviewSession(title, duration));
-                } else {
-                    System.err.println("格式錯誤（忽略該行）：" + line);
-                }
+                sessions.add(new ReviewSession(line));
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void populateFields(JTextField[] titleFields, JTextField[] durationFields) {
+        for (int i = 0; i < sessions.size() && i < titleFields.length && i < durationFields.length; i++) {
+            ReviewSession session = sessions.get(i);
+            titleFields[i].setText(session.getTitle());
+            durationFields[i].setText(session.getDuration().toString());
+        }
+    }
 /*
     public void printAllSessions() {    //列出所有複習紀錄
         for (ReviewSession s:statistic) {
