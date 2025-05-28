@@ -25,7 +25,7 @@ public class AddCardDialog extends JDialog{
     private JList<String> fileList;
     private DefaultListModel<String> listModel;
 
-    public AddCardDialog() {
+    public AddCardDialog(AllCardWindow a) {
         setTitle("新增卡片");
         subjectsList.add("全部");
         subjectsList.add("電腦網路");
@@ -165,6 +165,7 @@ public class AddCardDialog extends JDialog{
             Card newCard = new Card(frontTextField.getText(),imageNameLabel.getText(),hintField.getText(), (String) categoryComboBox.getSelectedItem(),filePath.getText());
             CardManager c = new CardManager();
             c.addCard(newCard);
+            a.readCards(0);
             dispose();
         });
         add(addButton);

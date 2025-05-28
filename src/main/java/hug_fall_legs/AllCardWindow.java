@@ -5,6 +5,7 @@ import javax.swing.*;
 
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class AllCardWindow extends JPanel {
@@ -15,17 +16,17 @@ public class AllCardWindow extends JPanel {
     private String[] subjects = {"全部","電腦網路","演算法","Java","Verilog"};
     private JComboBox<String> categoryComboBox;
     private JTextField hintField;
-    //private CardManager cardManager = new CardManager();
+    private CardManager cardManager = new CardManager();
     private CardDisplayPanel cardPanel;
     private int currentCardIndex = 0; // 現在顯示哪張Card
     private JRadioButton forgotButton, rememberButton;
     private ButtonGroup forgotOptions;
     private JPanel backPanel, addPanel;
+    private ArrayList<Card> allcard;
+    private boolean[] hideornot = {true};
 
-    //private int[] duration = {1, 3, 4, 5};
 
     public AllCardWindow(testmainMadeBy13 parent) {
-        System.out.println("切換到所有卡片頁面");
         this.parent = parent;
         setLayout(new BorderLayout());
 
@@ -79,10 +80,28 @@ public class AllCardWindow extends JPanel {
         topPanel.add(categoryPanel);
         //  Card
         leftButton = new JButton("👈");
+        leftButton.addActionListener(e -> {
+            if (currentCardIndex==0){
+                currentCardIndex= allcard.size()-1;
+            }
+            readCards(--currentCardIndex);
+            hideornot[0]=true;
+            hintButton.setText("提示");
+            hintField.setText("* * * * * * * * * * * * * *");
+        });
         leftButton.setPreferredSize(new Dimension(40, 70));
         leftPanel = new JPanel(new GridBagLayout());
         leftPanel.add(leftButton);
         rightButton = new JButton("👉");
+        rightButton.addActionListener(e -> {
+            if (currentCardIndex==allcard.size()-1){
+                currentCardIndex= 0;
+            }
+            readCards(++currentCardIndex);
+            hideornot[0]=true;
+            hintButton.setText("提示");
+            hintField.setText("* * * * * * * * * * * * * *");
+        });
         rightButton.setPreferredSize(new Dimension(40, 70));
         rightPanel = new JPanel(new GridBagLayout());
         rightPanel.add(rightButton);
@@ -127,7 +146,7 @@ public class AllCardWindow extends JPanel {
         backButton.addActionListener(e -> parent.showMain());
         // 新增卡片
         addButton.addActionListener(e -> {
-            AddCardDialog addCardDialog = new AddCardDialog();
+            AddCardDialog addCardDialog = new AddCardDialog(this);
             addCardDialog.setVisible(true);
         });
 
@@ -140,31 +159,24 @@ public class AllCardWindow extends JPanel {
             // 根據 selected 進行卡片顯示更新
         });
         // 顯示提示
-        final boolean[] isOrignal = {true};
         hintButton.addActionListener(e -> {
             System.out.println("提示");
-            if (isOrignal[0]) {
+            if (hideornot[0]) {
                 FontMetrics ht = hintField.getFontMetrics(hintField.getFont());
                 hintField.setPreferredSize(new Dimension(ht.stringWidth(hintField.getText()),hintField.getHeight()));
-                hintField.setText("哈囉你好嗎?");
+                hintField.setText(allcard.get(currentCardIndex).getBackHint());
                 hintButton.setText("隱藏");
             } else {
                 hintField.setText("* * * * * * * * * * * * * *");
                 hintButton.setText("提示");
             }
-            isOrignal[0] = !isOrignal[0];   // 按一次變一次
+            hideornot[0] = !hideornot[0];   // 按一次變一次
 
         });
-        
+        readCards(currentCardIndex);
+
 
     }
-
-    private JFrame parentFrame() {
-        return (JFrame) SwingUtilities.getWindowAncestor(this);
-    }
-
-
-
     /* 更新卡片
     public void refreshCardDisplay() {
         if (!cardManager.getCardList().isEmpty()) {
@@ -172,5 +184,11 @@ public class AllCardWindow extends JPanel {
             cardPanel.updateCard(cardManager.getCardList().get(currentCardIndex));
         }
     }*/
-
+    public void readCards(int dir){
+        allcard = cardManager.readAllCards();
+        for (Card card : allcard) {
+            System.out.println(card);
+        }
+        cardPanel.updateCard(allcard.get(dir));
+    }
 }
