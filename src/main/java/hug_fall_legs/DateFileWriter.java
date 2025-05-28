@@ -18,7 +18,7 @@ public class DateFileWriter {
         LocalDate today = LocalDate.now();
         int month = today.getMonthValue();
         int day = today.getDayOfMonth();
-        return "今天是 " + month + " 月 " + day + " 號 "+ time.toString()+"\n";
+        return month + "/" + day + " "+ time.toString()+"\n";
     }
 
     // 附加寫入日期到檔案
