@@ -17,7 +17,6 @@ public class ErrorCollectWindow extends JPanel {
     private JTextField hintField;
 
     public ErrorCollectWindow(testmainMadeBy13 parent) {
-        System.out.println("切換到錯誤統計頁面");
         this.parent = parent;
         setLayout(new BorderLayout());
 

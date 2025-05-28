@@ -19,6 +19,10 @@ public class Card {
         this.linkedFilePath = linkedFilePath;
         this.remember = false;
     }
+    public Card(String frontText, String imagePath, String backHint, String category, String linkedFilePath, boolean remember) {
+        this(frontText,imagePath,backHint,category,linkedFilePath);
+        setRemember(remember);
+    }
 
     public void setFrontText(String text){ this.frontText = text; }
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
@@ -34,10 +38,12 @@ public class Card {
     public String getLinkedFilePath() {return linkedFilePath; }
     public ImageIcon getImageIcon() {
         if (imagePath != null) {
-            return new ImageIcon(imagePath);
+            return new ImageIcon("Picture/"+imagePath);
         }
         return null;
     }
     public boolean getRemember() { return remember; }
-    
+    public String toString() {
+        return String.format("前文字:"+ getFrontText() +", 照片:"+getImagePath()+"背後提示:"+getBackHint()+"科目:"+getCategory()+"關聯檔案:"+getLinkedFilePath());
+    }
 }

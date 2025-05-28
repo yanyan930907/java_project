@@ -6,16 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Formatter;
-import java.util.FormatterClosedException;
-import java.util.List;
-import java.util.ArrayList;
+import java.nio.file.Paths;
+import java.util.*;
 import java.lang.reflect.Type;
 
 public class CardManager {
     private static Formatter output;
-    private List<Card> cardList = new ArrayList<>();
+    private ArrayList<Card> cardList = new ArrayList<>();
     private String fileName = "yourCard.txt"; // the target file name
+    private Scanner input;
 
     public void addCard(Card card) {
         openFile();
@@ -40,7 +39,7 @@ public class CardManager {
     }
     public void addRecord(Card card) {
         try {
-            output.format("%s\t%s\t%s\t%s\t%s%n",card.getFrontText(),card.getImagePath(),card.getBackHint(),card.getCategory(),card.getLinkedFilePath(),card.getCategory(),card.getLinkedFilePath());
+            output.format("%s\t%s\t%s\t%s\t%s\t%b%n",card.getFrontText(),card.getImagePath(),card.getBackHint(),card.getCategory(),card.getLinkedFilePath(),card.getRemember());
 
         } catch (FormatterClosedException formatterClosedException) {
             System.err.println("Error writing to file. Terminating.");
@@ -51,9 +50,48 @@ public class CardManager {
             output.close();
     }
 
+    public void openFiles() {
+        try {
+            input = new Scanner(Paths.get(fileName));
+        } catch (IOException ioException) {
+            System.err.println("Error opening file. Terminating.");
+            System.exit(1);
+        }
+    }
 
+    public ArrayList<Card> readAllCards() {
+        openFiles();
+        ArrayList<Card> list = readRecords();
+        closeFile();
+        return list;
+    }
 
-    public List<Card> getCardList() {
+    public ArrayList<Card> readRecords() {
+        ArrayList<Card> list = new ArrayList<Card>();
+        //System.out.printf("%-12s%-12s%10s%n", "First Name", "Last Name", "Balance");
+
+        try {
+            while (input.hasNext()) // while there is more to read
+            {
+                String frontText = input.next();
+                String imagePath = input.next();
+                String backHint = input.next();
+                String category = input.next();
+                String linkedFilePath = input.next();
+                boolean rem = input.nextBoolean();
+
+                list.add(new Card(frontText,imagePath,backHint,category,linkedFilePath,rem));
+            }
+        } catch (NoSuchElementException elementException) {
+            System.err.println("File improperly formed. Terminating.");
+        } catch (IllegalStateException stateException) {
+            System.err.println("Error reading from file. Terminating.");
+        }
+
+        return list;
+    }
+
+    public ArrayList<Card> getCardList() {
         return cardList;
     }
 }
