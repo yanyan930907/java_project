@@ -5,6 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.time.LocalDate;
+import java.io.FileWriter;
+import java.io.IOException;
 
 // 時間區面板
 public class TimePanel extends JPanel {
@@ -97,7 +99,8 @@ public class TimePanel extends JPanel {
                 timerManager.stop();
                 Time zeroTime = new Time(0, 0, 0);
                 updateTime(zeroTime);
-
+                DateFileWriter writer = new DateFileWriter("collectTime.txt");
+                writer.appendDateToFile();
             }
         }
     }
