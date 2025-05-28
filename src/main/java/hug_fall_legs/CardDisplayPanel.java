@@ -21,7 +21,7 @@ public class CardDisplayPanel  extends JPanel{
         frontTextLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         frontTextLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        subjectLabel = new JLabel("科目");
+        subjectLabel = new JLabel("Subject:");
         subjectLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         subjectLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -29,7 +29,7 @@ public class CardDisplayPanel  extends JPanel{
         imageIconLabel.setPreferredSize(new Dimension(280,100));
         imageIconLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        filePathLabel = new JLabel("相關資料");
+        filePathLabel = new JLabel("Related File:");
         filePathLabel.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         frontTextLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -51,7 +51,7 @@ public class CardDisplayPanel  extends JPanel{
     public void updateCard(Card card) {
             imageIconLabel.setIcon(card.getImageIcon());
             frontTextLabel.setText(card.getFrontText());
-            subjectLabel.setText("科目：" + card.getCategory());
-            filePathLabel.setText("相關資料：" + card.getLinkedFilePath());
+            subjectLabel.setText("Subject:" + card.getCategory());
+            filePathLabel.setText("Related File:" + card.getLinkedFilePath());
         }
 }
