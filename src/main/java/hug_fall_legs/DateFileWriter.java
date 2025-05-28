@@ -14,16 +14,16 @@ public class DateFileWriter {
     }
 
     // 取得今天的月份和日期字串
-    private String getTodayMonthDay() {
+    private String getTodayMonthDay(Time time) {
         LocalDate today = LocalDate.now();
         int month = today.getMonthValue();
         int day = today.getDayOfMonth();
-        return "今天是 " + month + " 月 " + day + " 號\n";
+        return "今天是 " + month + " 月 " + day + " 號 "+ time.toString()+"\n";
     }
 
     // 附加寫入日期到檔案
-    public void appendDateToFile() {
-        String content = getTodayMonthDay();
+    public void appendDateToFile(Time time) {
+        String content = getTodayMonthDay(time);
 
         try (FileWriter fw = new FileWriter(filename, true)) {
             fw.write(content);

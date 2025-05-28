@@ -4,9 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.time.LocalDate;
-import java.io.FileWriter;
-import java.io.IOException;
 
 // 時間區面板
 public class TimePanel extends JPanel {
@@ -16,12 +13,10 @@ public class TimePanel extends JPanel {
     public JLabel hoursLabel;
     public JLabel minutesLabel;
     public JLabel secondsLabel;
-    JButton stopTimeButton;
-    JButton setTimeButton;
-    JButton recordButton;
-    LocalDate today = LocalDate.now(); // 取得今天日期
-    private int month = today.getMonthValue();  // 月份
-    private int day = today.getDayOfMonth();
+    private JButton stopTimeButton;
+    private JButton setTimeButton;
+    private JButton recordButton;
+    private Time nowTime;
 
     public TimePanel() {
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -76,8 +71,8 @@ public class TimePanel extends JPanel {
 
         swingTimer = new Timer(100, e -> {
             if (timerManager.isRunning()) {
-                Time time = timerManager.getElapsedTime();
-                updateTime(time);
+                nowTime = timerManager.getElapsedTime();
+                updateTime(nowTime);
             }
         });
         swingTimer.start();
@@ -97,10 +92,10 @@ public class TimePanel extends JPanel {
             else if (source == recordButton) {
                 System.out.println("結束時間被按下");
                 timerManager.stop();
+                DateFileWriter writer = new DateFileWriter("collectTime.txt");
+                writer.appendDateToFile(nowTime);
                 Time zeroTime = new Time(0, 0, 0);
                 updateTime(zeroTime);
-                DateFileWriter writer = new DateFileWriter("collectTime.txt");
-                writer.appendDateToFile();
             }
         }
     }
