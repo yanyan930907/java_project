@@ -39,7 +39,7 @@ public class CardManager {
     }
     public void addRecord(Card card) {
         try {
-            output.format("%s\t%s\t%s\t%s\t%s%n",card.getFrontText(),card.getImagePath(),card.getBackHint(),card.getCategory(),card.getLinkedFilePath(),card.getCategory(),card.getLinkedFilePath());
+            output.format("%s\t%s\t%s\t%s\t%s\t%d%n",card.getFrontText(),card.getImagePath(),card.getBackHint(),card.getCategory(),card.getLinkedFilePath(),card.getCategory(),card.getLinkedFilePath(),card.getRemember());
 
         } catch (FormatterClosedException formatterClosedException) {
             System.err.println("Error writing to file. Terminating.");
@@ -63,7 +63,6 @@ public class CardManager {
         openFiles();
         ArrayList<Card> list = readRecords();
         closeFile();
-
         return list;
     }
 
@@ -80,7 +79,7 @@ public class CardManager {
                 String backHint = input.next();
                 String category = input.next();
                 String linkedFilePath = input.next();
-                boolean rem = input.hasNextBoolean();
+                boolean rem = input.nextBoolean();
                 list.add(new Card(frontText,imagePath,backHint,category,linkedFilePath,rem));
             }
         } catch (NoSuchElementException elementException) {

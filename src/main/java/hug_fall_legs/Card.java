@@ -32,7 +32,7 @@ public class Card {
     public void setRemember(boolean remember) { this.remember = remember; }
 
     public String getFrontText() { return frontText; }
-    public String getImagePath() { return String.format(imagePath); }
+    public String getImagePath() { return imagePath; }
     public String getBackHint() { return backHint; }
     public String getCategory() { return category; }
     public String getLinkedFilePath() {return linkedFilePath; }
@@ -43,8 +43,6 @@ public class Card {
         return null;
     }
     public boolean getRemember() { return remember; }
-
-    @Override
     public String toString() {
         return String.format("前文字:"+ getFrontText() +", 照片:"+getImagePath()+"背後提示:"+getBackHint()+"科目:"+getCategory()+"關聯檔案:"+getLinkedFilePath());
     }
