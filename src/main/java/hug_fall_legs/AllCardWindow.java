@@ -140,9 +140,6 @@ public class AllCardWindow extends JPanel {
         
 
     }
-    public void addCard() {
-        
-    }
 
     private JFrame parentFrame() {
         return (JFrame) SwingUtilities.getWindowAncestor(this);
