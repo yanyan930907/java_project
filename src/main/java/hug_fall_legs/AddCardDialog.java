@@ -162,10 +162,9 @@ public class AddCardDialog extends JDialog{
 
         addButton = new JButton("新增卡片");
         addButton.addActionListener(e -> {
-            Card newCard = new Card(frontTextField.getText(),imagePathField.getText(),hintField.getText(),subjectField.getText(),filePathField.getText());
-            manager.addCard((newCard));
-            //manager.saveToJson("card.json");
-            //cardWindow.refreshCardDisplay();
+            Card newCard = new Card(frontTextField.getText(),imageNameLabel.getText(),hintField.getText(), (String) categoryComboBox.getSelectedItem(),filePath.getText());
+            CardManager c = new CardManager();
+            c.addCard(newCard);
             dispose();
         });
         add(addButton);
