@@ -3,7 +3,6 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
-
 import javax.swing.JPanel;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -29,6 +28,7 @@ public class BarChartPanel {
                 dataset = createQuarterlyDataset();
                 break;
             case "全部":
+
             default:
                 dataset = createAllTimeDataset();
                 break;
@@ -66,9 +66,36 @@ public class BarChartPanel {
 
     private static DefaultCategoryDataset createQuarterlyDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(60, "time", "3月");
-        dataset.addValue(70, "time", "4月");
-        dataset.addValue(50, "time", "5月");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M/d HH:mm:ss");
+        try (BufferedReader br = new BufferedReader(new FileReader("collectTime.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(" ");
+                if (parts.length == 2) {
+                    String dateStr = parts[0]; // 取得日期字串"4/28"
+                    String timeStr = parts[1]; // 取得時間字串"00:00:03"
+                    try {
+                        // 將日期和時間合併後解析成 Date 物件
+                        Date date = dateFormat.parse(dateStr + " " + timeStr);
+                        if (date != null) {
+                            // 計算當天午夜的時間戳記(毫秒)
+                            // 方法：用目前時間毫秒數減去時間部分的毫秒數
+                            long midnight = date.getTime() - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds()) * 1000;
+                            long timestamp = date.getTime();// 取得當前時間(毫秒)
+                            double value = (timestamp - midnight) / 1000.0;
+                            dataset.addValue(value, "time", getSeason(dateStr));
+                        }
+                    } catch (ParseException e) {
+                        System.err.println("日期解析錯誤: " + dateStr + " " + timeStr);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            // 若讀取檔案發生錯誤，印出例外訊息
+            e.printStackTrace();
+        }
+
+        // 回傳填好資料的資料集物件
         return dataset;
     }
 
@@ -121,5 +148,21 @@ public class BarChartPanel {
 
         // 回傳填好資料的資料集物件
         return dataset;
+    }
+    private static String getSeason(String dateStr) {
+        // 解析字串 "5/28" -> 月份是 5
+        String[] parts = dateStr.split("/");
+        int month = Integer.parseInt(parts[0]);
+
+        // 判斷季節
+        if (month >= 3 && month <= 5) {
+            return "3-5";
+        } else if (month >= 6 && month <= 8) {
+            return "6-8";
+        } else if (month >= 9 && month <= 11) {
+            return "9-11";
+        } else {
+            return "12-2"; // 12, 1, 2
+        }
     }
 }
