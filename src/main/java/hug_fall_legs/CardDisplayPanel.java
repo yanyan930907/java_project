@@ -8,8 +8,11 @@ import java.util.concurrent.Flow;
 
 
 public class CardDisplayPanel  extends JPanel{
-    private JLabel frontTextLabel, imageIconLabel, subjectLabel, filePathLabel;
+    private JLabel frontTextLabel, subjectLabel, filePathLabel;
     private JPanel topPanel, imagPanel, linkPanel;
+    private ScaledImageLabel imageIconLabel;
+
+
 
 
     public CardDisplayPanel() {
@@ -18,29 +21,29 @@ public class CardDisplayPanel  extends JPanel{
         setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
 
         frontTextLabel = new JLabel("Front Text");
-        frontTextLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        frontTextLabel.setFont(new Font("DFKai-SB", Font.BOLD, 20));
         frontTextLabel.setHorizontalAlignment(JLabel.CENTER);
 
         subjectLabel = new JLabel("Subject:");
-        subjectLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        subjectLabel.setFont(new Font("DFKai-SB", Font.BOLD, 14));
         subjectLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        imageIconLabel = new JLabel();
-        imageIconLabel.setPreferredSize(new Dimension(280,100));
-        imageIconLabel.setHorizontalAlignment(JLabel.CENTER);
+        imageIconLabel = new ScaledImageLabel();
+        imageIconLabel.setPreferredSize(new Dimension(500, 300)); // 可自定初始區域
+        imageIconLabel.setHorizontalAlignment(JLabel.LEFT);
 
         filePathLabel = new JLabel("Related File:");
-        filePathLabel.setFont(new Font("Segoe UI", Font.ITALIC, 12));
+        filePathLabel.setFont(new Font("DFKai-SB", Font.BOLD, 12));
         frontTextLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        topPanel = new JPanel(new FlowLayout());
-        topPanel.add(frontTextLabel);
-        topPanel.add(subjectLabel);
+        topPanel = new JPanel(new BorderLayout());
+        topPanel.add(frontTextLabel,BorderLayout.WEST);
+        topPanel.add(subjectLabel,BorderLayout.EAST);
 
         imagPanel = new JPanel(new FlowLayout());
         imagPanel.add(imageIconLabel);
 
-        linkPanel = new JPanel(new FlowLayout());
+        linkPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         linkPanel.add(filePathLabel);
 
         add(topPanel,BorderLayout.NORTH);
@@ -49,9 +52,14 @@ public class CardDisplayPanel  extends JPanel{
 
     }
     public void updateCard(Card card) {
-            imageIconLabel.setIcon(card.getImageIcon());
-            frontTextLabel.setText(card.getFrontText());
-            subjectLabel.setText("Subject:" + card.getCategory());
-            filePathLabel.setText("Related File:" + card.getLinkedFilePath());
+        ImageIcon icon = card.getImageIcon();
+        if (icon != null) {
+            imageIconLabel.setImage(icon.getImage());  // 不用 scaledInstance，因為會在 paintComponent 裡縮放
         }
+
+        frontTextLabel.setText(card.getFrontText());
+        subjectLabel.setText("Subject:" + card.getCategory());
+        filePathLabel.setText("Related File:" + card.getLinkedFilePath());
+    }
+
 }
