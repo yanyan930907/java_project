@@ -28,6 +28,38 @@ public class statisticWindow extends JPanel {
             System.err.println("無法載入 Nimbus LookAndFeel");
         }
         // upPanel-topPanel,有backButton、titleLabel
+        addTopPanel();
+
+        // upPanel-pictureLabel
+        BarChartPanel bcp = new BarChartPanel();
+        chartPanel=bcp.createBarChartPanel("全部");
+
+        // 加入upPanel元件
+        upPanel = new JPanel(new BorderLayout());
+        upPanel.add(topPanel,BorderLayout.NORTH);
+        upPanel.add(chartPanel,BorderLayout.CENTER);
+        
+        // scrollPane、contentPanel、rowPanel, 統計表單
+        contentPanel = new JPanel(); // 先創建 panel
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+
+        addDownPanel();
+        // 加入全部元件
+        add(upPanel);
+        add(downPanel);
+
+        updateStatistic();
+
+        timeComboBox.addActionListener(e-> {
+            upPanel.remove(chartPanel);
+            chartPanel=bcp.createBarChartPanel((String)timeComboBox.getSelectedItem());
+            upPanel.add(chartPanel,BorderLayout.CENTER);
+            System.out.println("Chart顯示為: " + (String)timeComboBox.getSelectedItem());
+        });
+        backButton.addActionListener(e -> parent.showMain());
+    }
+
+    public void addTopPanel() {
         backButton = new JButton("回到前頁");
         titleLabel = new JLabel("statistic  ");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
@@ -52,21 +84,9 @@ public class statisticWindow extends JPanel {
         topPanel.add(backPanel,BorderLayout.WEST);
         topPanel.add(titleLabel,BorderLayout.CENTER);
         topPanel.add(timeRangePanel,BorderLayout.EAST);
+    }
 
-        // upPanel-pictureLabel
-        BarChartPanel bcp = new BarChartPanel();
-        chartPanel=bcp.createBarChartPanel("全部");
-
-        // 加入upPanel元件
-        upPanel = new JPanel(new BorderLayout());
-        upPanel.add(topPanel,BorderLayout.NORTH);
-        upPanel.add(chartPanel,BorderLayout.CENTER);
-        
-        // scrollPane、contentPanel、rowPanel, 統計表單
-        contentPanel = new JPanel(); // 先創建 panel
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-
-
+    public void addDownPanel() {
         scrollPane = new JScrollPane(contentPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(200, 300));   // 畫面大小
@@ -83,21 +103,6 @@ public class statisticWindow extends JPanel {
         downPanel = new JPanel(new BorderLayout());
         downPanel.add(refreshPanel, BorderLayout.NORTH);
         downPanel.add(scrollPane, BorderLayout.CENTER);
-
-
-        // 加入全部元件
-        add(upPanel);
-        add(downPanel);
-
-        updateStatistic();
-
-        timeComboBox.addActionListener(e-> {
-            upPanel.remove(chartPanel);
-            chartPanel=bcp.createBarChartPanel((String)timeComboBox.getSelectedItem());
-            upPanel.add(chartPanel,BorderLayout.CENTER);
-            System.out.println("Chart顯示為: " + (String)timeComboBox.getSelectedItem());
-        });
-        backButton.addActionListener(e -> parent.showMain());
     }
 
     public void updateStatistic(){
