@@ -82,9 +82,10 @@ public class AllCardWindow extends JPanel {
         leftButton = new JButton("👈");
         leftButton.addActionListener(e -> {
             if (currentCardIndex==0){
-                currentCardIndex= allcard.size()-1;
+                currentCardIndex= allcard.size();
             }
             readCards(--currentCardIndex);
+            System.out.printf("size=%d , index=%d\n",allcard.size(),currentCardIndex);
             hideornot[0]=true;
             hintButton.setText("提示");
             hintField.setText("* * * * * * * * * * * * * *");
@@ -95,9 +96,11 @@ public class AllCardWindow extends JPanel {
         rightButton = new JButton("👉");
         rightButton.addActionListener(e -> {
             if (currentCardIndex==allcard.size()-1){
-                currentCardIndex= 0;
+                currentCardIndex= -1;
             }
+
             readCards(++currentCardIndex);
+            System.out.printf("size=%d , index=%d\n",allcard.size(),currentCardIndex);
             hideornot[0]=true;
             hintButton.setText("提示");
             hintField.setText("* * * * * * * * * * * * * *");
