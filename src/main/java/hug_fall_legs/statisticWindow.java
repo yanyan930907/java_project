@@ -105,7 +105,12 @@ public class statisticWindow extends JPanel {
 
         updateStatistic();
 
-        
+        timeComboBox.addActionListener(e-> {
+            upPanel.remove(chartPanel);
+            chartPanel=bcp.createBarChartPanel((String)timeComboBox.getSelectedItem());
+            upPanel.add(chartPanel,BorderLayout.CENTER);
+            System.out.println("Chart顯示為: " + (String)timeComboBox.getSelectedItem());
+        });
         backButton.addActionListener(e -> parent.showMain());
     }
 

@@ -40,7 +40,7 @@ public class BarChartPanel {
                 dataset         // 資料集
         );
 
-        return new ChartPanel(chart);  // 回傳 ChartPanel 而不是 JFrame
+        return new ChartPanel(chart);  // 回傳 ChartPanel
     }
     private static DefaultCategoryDataset createDailyDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
