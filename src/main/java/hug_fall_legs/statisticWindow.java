@@ -2,12 +2,12 @@ package hug_fall_legs;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
+import java.util.List;
 
 public class statisticWindow extends JPanel {
-    private JPanel upPanel, downPanel, topPanel, contentPanel, rowPanel, chartPanel;   // upPanel:上半, downPanel:下半, topPanel(在upPanel裡), contentPanel:顯示結果的表(在scrollPane裡), row(在contentPanel裡)
+    private JPanel upPanel, downPanel, topPanel, contentPanel, rowPanel, chartPanel, refreshPanel;   // upPanel:上半, downPanel:下半, topPanel(在upPanel裡), contentPanel:顯示結果的表(在scrollPane裡), row(在contentPanel裡)
     private JLabel titleLabel;  // titleLabel:標題, pictureLabel:圖表(在upPanel裡)
-    private JButton backButton;
+    private JButton backButton, refreshButton;
     private String[] timeRange = {"全部","一天","一週","一月","一季"};
     private JComboBox<String> timeComboBox; // 下拉時間範圍選單
     private JPanel timeRangePanel, backPanel;
@@ -66,36 +66,22 @@ public class statisticWindow extends JPanel {
         contentPanel = new JPanel(); // 先創建 panel
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
-        // 模擬加 10 筆資料，每筆是三欄
-        int maxEntries = 80;
-        titleFields = new JTextField[maxEntries];
-        durationFields = new JTextField[maxEntries];
-
-        for (int i = 0; i < maxEntries; i++) {
-            rowPanel = new JPanel(new GridLayout(1, 2, 5, 0));
-            rowPanel.setPreferredSize(new Dimension(100, 50));
-            rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 75));
-
-            JTextField notes = new JTextField();
-            notes.setEditable(false);
-            titleFields[i] = notes;  // 存進陣列
-            rowPanel.add(notes);
-
-            JTextField duration = new JTextField();
-            duration.setEditable(false);
-            durationFields[i] = duration;  // 存進陣列
-            rowPanel.add(duration);
-
-            contentPanel.add(rowPanel);
-            contentPanel.add(Box.createVerticalStrut(10));
-        }
 
         scrollPane = new JScrollPane(contentPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(200, 300));   // 畫面大小
 
+        refreshButton = new JButton("更新統計");
+        // 更新統計
+        refreshButton.addActionListener(e -> {
+            updateStatistic();
+        });
+        refreshPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        refreshPanel.add(refreshButton);
+
         // 加入downPanel元件
         downPanel = new JPanel(new BorderLayout());
+        downPanel.add(refreshPanel, BorderLayout.NORTH);
         downPanel.add(scrollPane, BorderLayout.CENTER);
 
 
@@ -117,6 +103,37 @@ public class statisticWindow extends JPanel {
     public void updateStatistic(){
         // 讀取.txt的統計資料然後填入JTextField
         ReviewStatistic stat = new ReviewStatistic("collectTime.txt");
+        List<ReviewSession> sessions = stat.getSessions();
+
+        contentPanel.removeAll();  // 清空原本的欄位
+
+        titleFields = new JTextField[sessions.size()];
+        durationFields = new JTextField[sessions.size()];
+
+        for (int i = 0; i < sessions.size(); i++) {
+            rowPanel = new JPanel(new GridLayout(1, 2, 5, 0));
+            rowPanel.setPreferredSize(new Dimension(100, 50));
+            rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 75));
+
+            JTextField notes = new JTextField();
+            notes.setEditable(false);
+            titleFields[i] = notes;
+
+            JTextField duration = new JTextField();
+            duration.setEditable(false);
+            durationFields[i] = duration;
+
+            rowPanel.add(notes);
+            rowPanel.add(duration);
+
+            contentPanel.add(rowPanel);
+            contentPanel.add(Box.createVerticalStrut(10));
+        }
+
+        // 重新填入內容
         stat.populateFields(titleFields, durationFields);
+
+        contentPanel.revalidate();  // 更新畫面
+        contentPanel.repaint();
     }
 }

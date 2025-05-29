@@ -31,4 +31,9 @@ public class ReviewStatistic {  // 讀整個.txt檔,多個ReviewSession
 
         }
     }
+
+    public List<ReviewSession> getSessions() {
+        return sessions;
+    }
+
 }
