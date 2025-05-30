@@ -27,6 +27,7 @@ public class AllCardWindow extends JPanel {
     private boolean[] hideornot = {true};
     private boolean selectedall = true;
     private String subjectNow = "";
+    private int confirm;
 
 
     public AllCardWindow(testmainMadeBy13 parent) {
@@ -58,17 +59,29 @@ public class AllCardWindow extends JPanel {
         // 顯示不同科目的卡片
         categoryComboBox.addActionListener(e -> {
             subjectNow = (String) categoryComboBox.getSelectedItem();
-            // 根據 selected 進行卡片顯示更新
-            if(Objects.equals(subjectNow, "全部")){
-                readCards(0);
-                selectedall=true;
-                System.out.println(" Select All becomes true.");
+            allcard=cardManager.readAllCards();
+            confirm = 0;
+            for(Card a :allcard){
+                if(a.getCategory().equals(subjectNow))  confirm++;
+            }
+            if (confirm == 0) {
+                JOptionPane.showMessageDialog(this,"沒有這科目的卡片");
             }
             else{
-                readCards(0,subjectNow,1);
-                selectedall=false;
-                System.out.println(" You choose a specific subject.");
+                // 根據 selected 進行卡片顯示更新
+                if(Objects.equals(subjectNow, "全部")){
+                    readCards(0);
+                    selectedall=true;
+                    System.out.println(" Select All becomes true.");
+                }
+                else{
+                    readCards(0,subjectNow,1);
+                    selectedall=false;
+                    System.out.println(" You choose a specific subject.");
+                }
             }
+
+
         });
         // 顯示提示
         hintButton.addActionListener(e -> {

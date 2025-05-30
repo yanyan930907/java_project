@@ -27,7 +27,6 @@ public class AddCardDialog extends JDialog{
 
     public AddCardDialog(AllCardWindow a) {
         setTitle("新增卡片");
-        subjectsList.add("全部");
         subjectsList.add("電腦網路");
         subjectsList.add("演算法");
         subjectsList.add("Java");
@@ -114,7 +113,7 @@ public class AddCardDialog extends JDialog{
         addrelatedButton = new JButton("找檔案");
         add(addrelatedButton);
         add(new JLabel("    Your Related File："));
-        filePath = new JLabel("尚未選擇關聯檔案");
+        filePath = new JLabel("未選擇關聯檔案");
         add(filePath);
         addrelatedButton.addActionListener(e -> {
             JFrame newFrame = new JFrame("新增關聯檔案");
@@ -206,6 +205,9 @@ public class AddCardDialog extends JDialog{
                         imageName.endsWith(".jpeg") || imageName.endsWith(".gif"))) {
 
                     throw new IllegalArgumentException("只允許加入 PNG、JPG、JPEG、GIF 格式的圖片！");
+                }
+                if(imageName.contains(" ")){
+                    throw new IllegalArgumentException("檔名不可以有空格!");
                 }
                 Files.copy(selectedFile.toPath(), destination.toPath());
                 JOptionPane.showMessageDialog(this, destination.getName() +"已新增到 Picture 資料夾" );
