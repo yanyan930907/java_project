@@ -2,6 +2,7 @@ package hug_fall_legs;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -13,6 +14,9 @@ public class ButtonPanel extends JPanel {
     JButton allDataButton;
     JButton errorButton;
     private testmainMadeBy13 parent;
+    private CardManager cardManager = new CardManager();
+    private ArrayList<Card> allCard;
+    private int countingError;
 
     public ButtonPanel(testmainMadeBy13 parent) {
         this.parent = parent;
@@ -58,8 +62,19 @@ public class ButtonPanel extends JPanel {
                 parent.showStatisticWindow();
             }
             else if (source == errorButton) {
-                System.out.println("錯誤整理被按下");
-                parent.showErrorWindow();
+                countingError=0;
+                allCard = cardManager.readAllCards();
+                for(Card card : allCard){
+                    if(card.getRemember())  countingError++;
+                }
+                if(countingError!=0){
+                    System.out.println("錯誤整理被按下");
+                    parent.showErrorWindow();
+                }
+                else{
+                    JOptionPane.showMessageDialog(parent,"你好棒棒都沒有不會的題目");
+                }
+
             }
             else if (source == allDataButton) {
                 System.out.println("所有資料被按下");

@@ -1,6 +1,7 @@
 package hug_fall_legs;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class testmainMadeBy13 extends JFrame {
     private CardLayout cardLayout;
@@ -10,6 +11,7 @@ public class testmainMadeBy13 extends JFrame {
     private AllDataWindow allDataWindow;
     private AllCardWindow allCardWindow;
     private ErrorCollectWindow errorWindow;
+
 
     public testmainMadeBy13() {
         setTitle("馬尚讀!!!!!");
