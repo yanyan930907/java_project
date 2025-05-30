@@ -14,6 +14,8 @@ public class AllCardWindow extends JPanel {
     private JLabel titleLabel , hintLabel;
     private JButton backButton, addButton, leftButton, rightButton, hintButton;
     private testmainMadeBy13 parent;
+    private SubjectManager subjectManager = new SubjectManager();
+    private ArrayList<String> subjectsList = new ArrayList<>();
     private String[] subjects = {"全部","電腦網路","演算法","Java","Verilog"};
     private JComboBox<String> categoryComboBox;
     private JTextField hintField;
@@ -28,6 +30,7 @@ public class AllCardWindow extends JPanel {
     private boolean selectedall = true;
     private String subjectNow = "";
     private int confirm;
+    private int ff = 0;
 
 
     public AllCardWindow(testmainMadeBy13 parent) {
@@ -72,7 +75,8 @@ public class AllCardWindow extends JPanel {
                     if(a.getCategory().equals(subjectNow))  confirm++;
                 }
                 if (confirm == 0) {
-                    JOptionPane.showMessageDialog(this,"沒有這科目的卡片");
+                    if(ff==0)   JOptionPane.showMessageDialog(this,"沒有這科目的卡片");
+                    else ff=0;
                 }
                 else{
 
@@ -166,9 +170,19 @@ public class AllCardWindow extends JPanel {
         titlePanel.add(addPanel,BorderLayout.EAST);
         //Button.setPreferredSize(new Dimension(150, 30)); // 寬200，高30
     }
-
+    public void resetArray(){
+        ff=1;
+        subjectsList=subjectManager.readSubject();
+        subjects=subjectsList.toArray(new String[0]);
+        categoryComboBox.removeAllItems();
+        for(String s:subjects){
+            categoryComboBox.addItem(s);
+        }
+    }
     public void addCategoryPanel() {
         //  category
+        subjectsList=subjectManager.readSubject();
+        subjects=subjectsList.toArray(new String[0]);
         categoryComboBox = new JComboBox<String>(subjects);
         categoryComboBox.setMaximumRowCount(4); // 一次顯示幾個
         categoryComboBox.setPreferredSize(new Dimension(150, 30));  // 設大小

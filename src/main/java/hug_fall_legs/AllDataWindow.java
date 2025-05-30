@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -16,7 +17,9 @@ public class AllDataWindow extends JPanel {
     private DefaultListModel<String> listModel;
     private String folderPath = "allData";
     private JComboBox<String> subjectComboBox;
-    private String[] subjects = {"全部","電腦網路","演算法","Java","Verilog"};
+    private SubjectManager subjectManager = new SubjectManager();
+    private ArrayList<String> subjectsList = new ArrayList<>();
+    private String[] subjects;
 
     public AllDataWindow(testmainMadeBy13 parent) {
         this.parent = parent;
@@ -64,6 +67,8 @@ public class AllDataWindow extends JPanel {
         bottom = new JPanel(new FlowLayout());
 
         // 下拉選單查詢功能
+        subjectsList=subjectManager.readSubject();
+        subjects=subjectsList.toArray(new String[0]);
         subjectComboBox = new JComboBox<>(subjects);
         subjectComboBox.addActionListener(e -> filterBySubject());  // 選項改變時自動篩選
 

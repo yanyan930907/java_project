@@ -24,13 +24,11 @@ public class AddCardDialog extends JDialog{
     private JPanel subjectPanel;
     private JList<String> fileList;
     private DefaultListModel<String> listModel;
+    private SubjectManager subjectManager = new SubjectManager();
 
     public AddCardDialog(AllCardWindow a) {
         setTitle("新增卡片");
-        subjectsList.add("電腦網路");
-        subjectsList.add("演算法");
-        subjectsList.add("Java");
-        subjectsList.add("Verilog");
+
 
 
         setLayout(new GridLayout(8,2,10, 10));
@@ -58,11 +56,13 @@ public class AddCardDialog extends JDialog{
         add(hintField);
 
         add(new JLabel("    Subject："));
+        subjectsList=subjectManager.readSubject();
         categoryComboBox = new JComboBox<>(subjectsList.toArray(new String[0]));
         categoryComboBox.setMaximumRowCount(4);
         subjectPanel= new JPanel();
         subjectPanel.add(categoryComboBox);
         addsubjectButton = new JButton("新增科目");
+
         addsubjectButton.addActionListener(e -> {
             JFrame newFrame = new JFrame("新增科目");
             newFrame.setSize(300, 200);
@@ -95,7 +95,9 @@ public class AddCardDialog extends JDialog{
                 if (input != null && !input.trim().isEmpty() && !input.contains(" ")) {
                     JOptionPane.showMessageDialog(this, "成功新增" + input);
                     subjectsList.add(input);
+                    subjectManager.addSub(input);
                     categoryComboBox.addItem(input);
+                    a.resetArray();
                 }
                 newFrame.dispose();
             });
