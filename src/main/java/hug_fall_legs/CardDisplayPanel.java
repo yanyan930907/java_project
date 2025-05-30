@@ -56,7 +56,6 @@ public class CardDisplayPanel  extends JPanel{
         if (icon != null) {
             imageIconLabel.setImage(icon.getImage());  // 不用 scaledInstance，因為會在 paintComponent 裡縮放
         }
-
         frontTextLabel.setText(card.getFrontText());
         subjectLabel.setText("Subject:" + card.getCategory());
         filePathLabel.setText("Related File:" + card.getLinkedFilePath());

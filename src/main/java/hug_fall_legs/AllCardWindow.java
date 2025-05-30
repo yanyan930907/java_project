@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class AllCardWindow extends JPanel {
     private JPanel topPanel, titlePanel, categoryPanel, midPanel, leftPanel, rightPanel , hintPanel, forgotPanel;
@@ -24,6 +25,8 @@ public class AllCardWindow extends JPanel {
     private JPanel backPanel, addPanel;
     private ArrayList<Card> allcard;
     private boolean[] hideornot = {true};
+    private boolean selectedall = true;
+    private String subjectNow = "";
 
 
     public AllCardWindow(testmainMadeBy13 parent) {
@@ -54,8 +57,18 @@ public class AllCardWindow extends JPanel {
         
         // 顯示不同科目的卡片
         categoryComboBox.addActionListener(e -> {
-            String selected = (String) categoryComboBox.getSelectedItem();
+            subjectNow = (String) categoryComboBox.getSelectedItem();
             // 根據 selected 進行卡片顯示更新
+            if(Objects.equals(subjectNow, "全部")){
+                readCards(0);
+                selectedall=true;
+                System.out.println(" Select All becomes true.");
+            }
+            else{
+                readCards(0,subjectNow,1);
+                selectedall=false;
+                System.out.println(" You choose a specific subject.");
+            }
         });
         // 顯示提示
         hintButton.addActionListener(e -> {
@@ -88,6 +101,26 @@ public class AllCardWindow extends JPanel {
         for (Card card : allcard) {
             System.out.println(card);
         }
+        cardPanel.updateCard(allcard.get(dir));
+    }
+
+    public void readCards(int dir,String sub,int gowhere){
+        //gowhere 1 是往後，0是往左
+        allcard = cardManager.readAllCards();
+        for (Card card : allcard) {
+            System.out.println(card);
+        }
+        while(!Objects.equals(allcard.get(dir).getCategory(), sub)&&!Objects.equals(allcard.get(dir).getCategory(),"全部")){
+            if(gowhere==1)  dir++;
+            else dir--;
+            if (dir==-1){
+                dir= allcard.size()-1;
+            }
+            if (dir==allcard.size()){
+                dir= 0;
+            }
+        }
+        currentCardIndex=dir;
         cardPanel.updateCard(allcard.get(dir));
     }
 
@@ -154,7 +187,13 @@ public class AllCardWindow extends JPanel {
             if (currentCardIndex==0){
                 currentCardIndex= allcard.size();
             }
-            readCards(--currentCardIndex);
+            if(selectedall){
+                readCards(--currentCardIndex);
+            }
+            else{
+                readCards(--currentCardIndex,subjectNow,0);
+            }
+
             System.out.printf("size=%d , index=%d\n",allcard.size(),currentCardIndex);
             hideornot[0]=true;
             hintButton.setText("提示");
@@ -168,8 +207,12 @@ public class AllCardWindow extends JPanel {
             if (currentCardIndex==allcard.size()-1){
                 currentCardIndex= -1;
             }
-
-            readCards(++currentCardIndex);
+            if(selectedall){
+                readCards(++currentCardIndex);
+            }
+            else{
+                readCards(++currentCardIndex,subjectNow,1);
+            }
             System.out.printf("size=%d , index=%d\n",allcard.size(),currentCardIndex);
             hideornot[0]=true;
             hintButton.setText("提示");
