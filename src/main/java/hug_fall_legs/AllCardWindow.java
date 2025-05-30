@@ -31,114 +31,13 @@ public class AllCardWindow extends JPanel {
         setLayout(new BorderLayout());
 
         //  top
-        backButton = new JButton("回到前頁");
-        titleLabel = new JLabel("Your Cards ");
-        addButton = new JButton("新增卡片");
+        addTopPanel();
 
-        // 按鍵美編
-        backButton.setPreferredSize(new Dimension(100, 50));
-        backPanel = new JPanel(new GridBagLayout());
-        backPanel.add(backButton);
-        addButton.setPreferredSize(new Dimension(100, 50));
-        addPanel = new JPanel(new GridBagLayout());
-        addPanel.add(addButton);
-
-            //  標題美編
-        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
-        titleLabel.setForeground(new Color(30, 60, 90));
-        titleLabel.setHorizontalAlignment(JLabel.CENTER);   // 將"Your Card"置中Label
-
-
-        titlePanel = new JPanel(new BorderLayout());
-        titlePanel.add(backPanel,BorderLayout.WEST);
-        titlePanel.add(titleLabel,BorderLayout.CENTER);
-        titlePanel.add(addPanel,BorderLayout.EAST);
-        //Button.setPreferredSize(new Dimension(150, 30)); // 寬200，高30
-
-        //  category
-        categoryComboBox = new JComboBox<String>(subjects);
-        categoryComboBox.setMaximumRowCount(4); // 一次顯示幾個
-        categoryComboBox.setPreferredSize(new Dimension(150, 30));  // 設大小
-
-        // forgot 單選
-        forgotButton = new JRadioButton("這啥??",false);
-        rememberButton = new JRadioButton("老熟了!!",true);
-        forgotOptions = new ButtonGroup();
-        forgotOptions.add(rememberButton);
-        forgotOptions.add(forgotButton);
-        forgotPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        forgotPanel.add(rememberButton);
-        forgotPanel.add(forgotButton);
-
-        categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        categoryPanel.add(categoryComboBox);
-        categoryPanel.add(forgotPanel);
-
-        topPanel = new JPanel(new GridLayout(2,1));
-        topPanel.add(titlePanel);
-        topPanel.add(categoryPanel);
         //  Card
-        leftButton = new JButton("👈");
-        leftButton.addActionListener(e -> {
-            if (currentCardIndex==0){
-                currentCardIndex= allcard.size();
-            }
-            readCards(--currentCardIndex);
-            System.out.printf("size=%d , index=%d\n",allcard.size(),currentCardIndex);
-            hideornot[0]=true;
-            hintButton.setText("提示");
-            hintField.setText("* * * * * * * * * * * * * *");
-        });
-        leftButton.setPreferredSize(new Dimension(40, 70));
-        leftPanel = new JPanel(new GridBagLayout());
-        leftPanel.add(leftButton);
-        rightButton = new JButton("👉");
-        rightButton.addActionListener(e -> {
-            if (currentCardIndex==allcard.size()-1){
-                currentCardIndex= -1;
-            }
-
-            readCards(++currentCardIndex);
-            System.out.printf("size=%d , index=%d\n",allcard.size(),currentCardIndex);
-            hideornot[0]=true;
-            hintButton.setText("提示");
-            hintField.setText("* * * * * * * * * * * * * *");
-        });
-        rightButton.setPreferredSize(new Dimension(40, 70));
-        rightPanel = new JPanel(new GridBagLayout());
-        rightPanel.add(rightButton);
-        /*
-        cardLabel = new JLabel("card");
-        cardLabel.setPreferredSize(new Dimension(300, 200)); // 控制Card大小
-        */
-        //cardManager.loadFromJson("cards.json");
-        cardPanel = new CardDisplayPanel();
-        /*
-        if (!cardManager.getCardList().isEmpty()){  // CardList 中有存卡片
-            cardPanel.updateCard(cardManager.getCardList().get(currentCardIndex));
-        }*/
-
-
-        midPanel = new JPanel(new BorderLayout());
-        midPanel.add(leftPanel,BorderLayout.WEST);
-        midPanel.add(cardPanel,BorderLayout.CENTER);
-        midPanel.add(rightPanel,BorderLayout.EAST);
-        
-        
+        addCardDisplay();
 
         //  hint
-        //hintLabel = new JLabel("***");
-        hintButton = new JButton("提示");
-        hintField = new JTextField("* * * * * * * * * * * * * *");
-        hintField.setEditable(false);
-        //hintField.setVisible(false);
-
-
-
-        hintPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        hintPanel.add(hintField);
-        hintPanel.add(hintButton);
+        addHintPanel();
 
         // 加panel
         add(topPanel,BorderLayout.NORTH);
@@ -152,10 +51,7 @@ public class AllCardWindow extends JPanel {
             AddCardDialog addCardDialog = new AddCardDialog(this);
             addCardDialog.setVisible(true);
         });
-
         
-        
-
         // 顯示不同科目的卡片
         categoryComboBox.addActionListener(e -> {
             String selected = (String) categoryComboBox.getSelectedItem();
@@ -193,5 +89,128 @@ public class AllCardWindow extends JPanel {
             System.out.println(card);
         }
         cardPanel.updateCard(allcard.get(dir));
+    }
+
+    public void addTitlePanel() {
+        backButton = new JButton("回到前頁");
+        titleLabel = new JLabel("Your Cards ");
+        addButton = new JButton("新增卡片");
+
+        // 按鍵美編
+        backButton.setPreferredSize(new Dimension(100, 50));
+        backPanel = new JPanel(new GridBagLayout());
+        backPanel.add(backButton);
+        addButton.setPreferredSize(new Dimension(100, 50));
+        addPanel = new JPanel(new GridBagLayout());
+        addPanel.add(addButton);
+
+        //  標題美編
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
+        titleLabel.setForeground(new Color(30, 60, 90));
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);   // 將"Your Card"置中Label
+
+
+        titlePanel = new JPanel(new BorderLayout());
+        titlePanel.add(backPanel,BorderLayout.WEST);
+        titlePanel.add(titleLabel,BorderLayout.CENTER);
+        titlePanel.add(addPanel,BorderLayout.EAST);
+        //Button.setPreferredSize(new Dimension(150, 30)); // 寬200，高30
+    }
+
+    public void addCategoryPanel() {
+        //  category
+        categoryComboBox = new JComboBox<String>(subjects);
+        categoryComboBox.setMaximumRowCount(4); // 一次顯示幾個
+        categoryComboBox.setPreferredSize(new Dimension(150, 30));  // 設大小
+
+        // forgot 單選
+        forgotButton = new JRadioButton("這啥??",false);
+        rememberButton = new JRadioButton("老熟了!!",true);
+        forgotOptions = new ButtonGroup();
+        forgotOptions.add(rememberButton);
+        forgotOptions.add(forgotButton);
+        forgotPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        forgotPanel.add(rememberButton);
+        forgotPanel.add(forgotButton);
+
+        categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        categoryPanel.add(categoryComboBox);
+        categoryPanel.add(forgotPanel);
+    }
+
+    public void addTopPanel() {
+        addTitlePanel();
+        addCategoryPanel();
+
+        topPanel = new JPanel(new GridLayout(2,1));
+        topPanel.add(titlePanel);
+        topPanel.add(categoryPanel);
+    }
+
+    public void addControlButton() {
+        leftButton = new JButton("👈");
+        leftButton.addActionListener(e -> {
+            if (currentCardIndex==0){
+                currentCardIndex= allcard.size();
+            }
+            readCards(--currentCardIndex);
+            System.out.printf("size=%d , index=%d\n",allcard.size(),currentCardIndex);
+            hideornot[0]=true;
+            hintButton.setText("提示");
+            hintField.setText("* * * * * * * * * * * * * *");
+        });
+        leftButton.setPreferredSize(new Dimension(40, 70));
+        leftPanel = new JPanel(new GridBagLayout());
+        leftPanel.add(leftButton);
+        rightButton = new JButton("👉");
+        rightButton.addActionListener(e -> {
+            if (currentCardIndex==allcard.size()-1){
+                currentCardIndex= -1;
+            }
+
+            readCards(++currentCardIndex);
+            System.out.printf("size=%d , index=%d\n",allcard.size(),currentCardIndex);
+            hideornot[0]=true;
+            hintButton.setText("提示");
+            hintField.setText("* * * * * * * * * * * * * *");
+        });
+        rightButton.setPreferredSize(new Dimension(40, 70));
+        rightPanel = new JPanel(new GridBagLayout());
+        rightPanel.add(rightButton);
+    }
+
+    public void addCardDisplay() {
+        addControlButton();
+        /*
+        cardLabel = new JLabel("card");
+        cardLabel.setPreferredSize(new Dimension(300, 200)); // 控制Card大小
+        */
+        //cardManager.loadFromJson("cards.json");
+        cardPanel = new CardDisplayPanel();
+        /*
+        if (!cardManager.getCardList().isEmpty()){  // CardList 中有存卡片
+            cardPanel.updateCard(cardManager.getCardList().get(currentCardIndex));
+        }*/
+
+
+        midPanel = new JPanel(new BorderLayout());
+        midPanel.add(leftPanel,BorderLayout.WEST);
+        midPanel.add(cardPanel,BorderLayout.CENTER);
+        midPanel.add(rightPanel,BorderLayout.EAST);
+    }
+
+    public void addHintPanel() {
+        //hintLabel = new JLabel("***");
+        hintButton = new JButton("提示");
+        hintField = new JTextField("* * * * * * * * * * * * * *");
+        hintField.setEditable(false);
+        //hintField.setVisible(false);
+
+
+
+        hintPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        hintPanel.add(hintField);
+        hintPanel.add(hintButton);
     }
 }
