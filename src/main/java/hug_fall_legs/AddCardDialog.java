@@ -93,7 +93,7 @@ public class AddCardDialog extends JDialog{
             // 按鈕事件範例
             okButton.addActionListener(ev-> {
                 String input = textField.getText();
-                if (input != null && !input.trim().isEmpty()) {
+                if (input != null && !input.trim().isEmpty() && !input.contains(" ")) {
                     JOptionPane.showMessageDialog(this, "成功新增" + input);
                     subjectsList.add(input);
                     categoryComboBox.addItem(input);
@@ -162,11 +162,19 @@ public class AddCardDialog extends JDialog{
 
         addButton = new JButton("新增卡片");
         addButton.addActionListener(e -> {
-            Card newCard = new Card(frontTextField.getText(),imageNameLabel.getText(),hintField.getText(), (String) categoryComboBox.getSelectedItem(),filePath.getText());
-            CardManager c = new CardManager();
-            c.addCard(newCard);
-            a.readCards(0);
-            dispose();
+            try{
+                if(frontTextField.getText().contains(" ")||hintField.getText().contains(" ")||frontTextField.getText().isEmpty()||hintField.getText().isEmpty()) {
+                    throw new IllegalArgumentException("不可以是空格或空的!");
+                }
+                Card newCard = new Card(frontTextField.getText(),imageNameLabel.getText(),hintField.getText(), (String) categoryComboBox.getSelectedItem(),filePath.getText());
+                CardManager c = new CardManager();
+                c.addCard(newCard);
+                a.readCards(0);
+                dispose();
+            }catch(IllegalArgumentException ee){
+                JOptionPane.showMessageDialog(this,ee);
+            }
+
         });
         add(addButton);
 
