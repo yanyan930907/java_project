@@ -1,4 +1,5 @@
 package hug_fall_legs;
+import com.sun.jdi.BooleanValue;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -15,23 +16,31 @@ import java.util.Date;
 public class BarChartPanel{
     public static JPanel createBarChartPanel(String timeRange) {
         DefaultCategoryDataset dataset;
+        Boolean returnChartPanle = true;
         switch (timeRange) {
             case "一天":
                 dataset = createDataSet("一天");
+                returnChartPanle = true;
                 break;
             case "一週":
                 dataset = createDataSet("一週");
+                returnChartPanle = true;
                 break;
             case "一月":
                 dataset = createDataSet("一月");
+                returnChartPanle = true;
                 break;
             case "一季":
                 dataset = createDataSet("一季");
+                returnChartPanle = true;
                 break;
             case "全部":
-                dataset = createDataSet("全部");
+                dataset = createDataSet("一天");
+                returnChartPanle = false;
+                break;
             default:
-                dataset = createDataSet("全部");
+                dataset = createDataSet("一天");
+                returnChartPanle=false;
                 break;
         }
         JFreeChart chart = ChartFactory.createBarChart(
@@ -40,8 +49,13 @@ public class BarChartPanel{
                 "Time",         // Y 軸標籤
                 dataset         // 資料集
         );
+        if(returnChartPanle == true){
+            return new ChartPanel(chart);
+        }
+        else{
+            return new TimeDisplayPanel("collectTime.txt");
+        }
 
-        return new ChartPanel(chart);  // 回傳 ChartPanel
     }
     private static String getSeason(String dateStr) {
         // 解析字串 "5/28" -> 月份是 5
