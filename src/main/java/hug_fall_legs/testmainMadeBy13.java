@@ -23,11 +23,14 @@ public class testmainMadeBy13 extends JFrame {
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
+
+
         // 初始化子畫面並傳入主 frame 作為參考
         statisticWindow = new statisticWindow(this);
         mainWindow= new MainWindow(this);
         allDataWindow=new AllDataWindow(this);
         ErrorCollectWindow errorWindow=new ErrorCollectWindow(this);
+        System.out.println("testAll");
         allCardWindow = new AllCardWindow(this);
 
         cardPanel.add(mainWindow, "main");
@@ -39,6 +42,7 @@ public class testmainMadeBy13 extends JFrame {
         cardLayout.show(cardPanel, "main");
         setVisible(true);
 
+        System.out.println("showMain");
     }
     public void showMain(){
         cardLayout.show(cardPanel, "main");

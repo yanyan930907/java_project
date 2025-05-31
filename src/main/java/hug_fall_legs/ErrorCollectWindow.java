@@ -28,6 +28,7 @@ public class ErrorCollectWindow extends JPanel {
     private String subjectNow = "";
     private int confirm;
     private int ff = 0;
+    private int countingError;
     private writeANewOne writeNewOne = new writeANewOne();
 
     public ErrorCollectWindow(testmainMadeBy13 parent) {
@@ -79,6 +80,7 @@ public class ErrorCollectWindow extends JPanel {
                 System.out.println("remember");
             }
             writeNewOne.update(allcard);
+
         });
         forgotButton.addActionListener(e -> {
             if(forgotButton.isSelected()){
@@ -95,8 +97,13 @@ public class ErrorCollectWindow extends JPanel {
         subjects=subjectsList.toArray(new String[0]);
         categoryComboBox.removeAllItems();
         for(String s:subjects){
-            categoryComboBox.addItem(s);
+            if(countingError!=0) categoryComboBox.addItem(s);
+            else {
+                countingError=1;
+                categoryComboBox.addItem("選擇你要的科目");
+            }
         }
+        countingError=0;
         categoryPanel.add(categoryComboBox);
         categoryPanel.add(forgotPanel);
 
@@ -143,24 +150,12 @@ public class ErrorCollectWindow extends JPanel {
         rightButton.setPreferredSize(new Dimension(40, 70));
         rightPanel = new JPanel(new GridBagLayout());
         rightPanel.add(rightButton);
-        /*
-        cardLabel = new JLabel("card");
-        cardLabel.setPreferredSize(new Dimension(300, 200)); // 控制Card大小
-        */
-        //cardManager.loadFromJson("cards.json");
         cardPanel = new CardDisplayPanel();
-        /*
-        if (!cardManager.getCardList().isEmpty()){  // CardList 中有存卡片
-            cardPanel.updateCard(cardManager.getCardList().get(currentCardIndex));
-        }*/
-
 
         midPanel = new JPanel(new BorderLayout());
         midPanel.add(leftPanel,BorderLayout.WEST);
         midPanel.add(cardPanel,BorderLayout.CENTER);
         midPanel.add(rightPanel,BorderLayout.EAST);
-
-
 
         //  hint
         //hintLabel = new JLabel("***");
@@ -182,6 +177,7 @@ public class ErrorCollectWindow extends JPanel {
         backButton.addActionListener(e -> parent.showMain());
         allcard = cardManager.readAllCards();
         readCards(currentCardIndex,1);
+
 
         // 顯示不同科目的卡片
         categoryComboBox.addActionListener(e -> {
@@ -209,9 +205,7 @@ public class ErrorCollectWindow extends JPanel {
                 }
             }
         });
-
         // 顯示提示
-
         hintButton.addActionListener(e -> {
             System.out.println("提示");
             if (hideornot[0]) {
@@ -228,69 +222,52 @@ public class ErrorCollectWindow extends JPanel {
     }
 
     public void readCards(int dir,int gowhere){
-
+        countingError=0;
         for (Card card : allcard) {
-            System.out.println(card);
-        }while(allcard.get(dir).getRemember()){
-            if(gowhere==1)  dir++;
-            else dir--;
-            if (dir==-1){
-                dir= allcard.size()-1;
-            }
-            if (dir==allcard.size()){
-                dir= 0;
+            if(!card.getRemember()){
+                countingError++;
+                System.out.println(card);
             }
         }
-        currentCardIndex=dir;
-        if(allcard.get(dir).getRemember()){
-            rememberButton.setSelected(true);
-            forgotButton.setSelected(false);
+        System.out.println("countingError="+countingError);
+        if(countingError==0) {
+            JOptionPane.showMessageDialog(this,"你沒什麼好讀的");
         }
-        else{
-            rememberButton.setSelected(false);
-            forgotButton.setSelected(true);
-        }
-        cardPanel.updateCard(allcard.get(dir));
-
     }
 
     public void readCards(int dir,String sub,int gowhere){
         //gowhere 1 是往後，0是往左
+        countingError=0;
         for (Card card : allcard) {
-            System.out.println(card);
-        }
-        while(!Objects.equals(allcard.get(dir).getCategory(), sub)&&!Objects.equals(allcard.get(dir).getCategory(),"全部")&& allcard.get(dir).getRemember()){
-            if(gowhere==1)  dir++;
-            else dir--;
-            if (dir==-1){
-                dir= allcard.size()-1;
-            }
-            if (dir==allcard.size()){
-                dir= 0;
+            if(!card.getRemember()&& Objects.equals(card.getCategory(), sub)) {
+                countingError++;
+                System.out.println(card);
             }
         }
-        currentCardIndex=dir;
-        if(allcard.get(dir).getRemember()){
-            rememberButton.setSelected(true);
-            forgotButton.setSelected(false);
+        if(countingError==0) {
+            JOptionPane.showMessageDialog(this,"別再找了，怎麼找都磨用");
         }
-        else{
-            rememberButton.setSelected(false);
-            forgotButton.setSelected(true);
+        else {
+            while (!allcard.get(dir).getCategory().equals(sub) || allcard.get(dir).getRemember()) {
+                System.out.println("dir=" + dir);
+                if (gowhere == 1) dir++;
+                else dir--;
+                if (dir == -1) {
+                    dir = allcard.size() - 1;
+                }
+                if (dir == allcard.size()) {
+                    dir = 0;
+                }
+            }
+            currentCardIndex = dir;
+            if (allcard.get(dir).getRemember()) {
+                rememberButton.setSelected(true);
+                forgotButton.setSelected(false);
+            } else {
+                rememberButton.setSelected(false);
+                forgotButton.setSelected(true);
+            }
+            cardPanel.updateCard(allcard.get(dir));
         }
-        cardPanel.updateCard(allcard.get(dir));
-
     }
-
-
-
-
-    /* 更新卡片
-    public void refreshCardDisplay() {
-        if (!cardManager.getCardList().isEmpty()) {
-            currentCardIndex = cardManager.getCardList().size() - 1;
-            cardPanel.updateCard(cardManager.getCardList().get(currentCardIndex));
-        }
-    }*/
-
 }
