@@ -3,6 +3,7 @@ package hug_fall_legs;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Collections;
 
 public class statisticWindow extends JPanel {
     private JPanel upPanel, downPanel, topPanel, contentPanel, rowPanel, chartPanel, refreshPanel;   // upPanel:上半, downPanel:下半, topPanel(在upPanel裡), contentPanel:顯示結果的表(在scrollPane裡), row(在contentPanel裡)
@@ -112,7 +113,9 @@ public class statisticWindow extends JPanel {
         ReviewStatistic stat = new ReviewStatistic("collectTime.txt");
         List<ReviewSession> sessions = stat.getSessions();
 
-        contentPanel.removeAll();  // 清空原本的欄位
+        Collections.reverse(sessions);  // 把List倒過來
+
+        contentPanel.removeAll();  // 清空舊的欄位
 
         titleFields = new JTextField[sessions.size()];
         durationFields = new JTextField[sessions.size()];
