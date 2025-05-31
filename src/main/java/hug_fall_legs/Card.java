@@ -44,6 +44,6 @@ public class Card {
     }
     public boolean getRemember() { return remember; }
     public String toString() {
-        return String.format("前文字:"+ getFrontText() +", 照片:"+getImagePath()+"背後提示:"+getBackHint()+"科目:"+getCategory()+"關聯檔案:"+getLinkedFilePath());
+        return String.format("前文字:"+ getFrontText() +", 照片:"+getImagePath()+"背後提示:"+getBackHint()+"科目:"+getCategory()+"關聯檔案:"+getLinkedFilePath()+"記得嗎?"+getRemember());
     }
 }

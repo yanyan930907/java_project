@@ -2,19 +2,33 @@ package hug_fall_legs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class ErrorCollectWindow extends JPanel {
     private JPanel topPanel, backPanel, titlePanel, forgotPanel, categoryPanel, hintPanel;
     private JLabel titleLabel;
     private JButton backButton, leftButton, rightButton, hintButton;
     private testmainMadeBy13 parent;
+    private SubjectManager subjectManager = new SubjectManager();
+    private ArrayList<String> subjectsList = new ArrayList<>();
     private String[] subjects = {"全部","電腦網路","演算法","Java","Verilog"};
     private JComboBox<String> categoryComboBox;
     private JRadioButton forgotButton, rememberButton;
     private ButtonGroup forgotOptions;
-    private JPanel leftPanel, rightPanel, cardPanel, midPanel;
+    private JPanel leftPanel, rightPanel, midPanel;
     private JTextField hintField;
+    private CardDisplayPanel cardPanel;
+    private CardManager cardManager = new CardManager();
+    private int currentCardIndex = 0;
+    private ArrayList<Card> allcard;
+    private boolean[] hideornot = {true};
+    private boolean selectedall = true;
+    private String subjectNow = "";
+    private int confirm;
+    private int ff = 0;
+    private writeANewOne writeNewOne = new writeANewOne();
 
     public ErrorCollectWindow(testmainMadeBy13 parent) {
         this.parent = parent;
@@ -55,8 +69,34 @@ public class ErrorCollectWindow extends JPanel {
         forgotPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         forgotPanel.add(rememberButton);
         forgotPanel.add(forgotButton);
-
+        rememberButton.addActionListener(e -> {
+            if(rememberButton.isSelected()){
+                forgotButton.setSelected(false);
+                Card card = allcard.get(currentCardIndex);
+                card.setRemember(true);
+                allcard.set(currentCardIndex, card);
+                System.out.println(card);
+                System.out.println("remember");
+            }
+            writeNewOne.update(allcard);
+        });
+        forgotButton.addActionListener(e -> {
+            if(forgotButton.isSelected()){
+                rememberButton.setSelected(false);
+                Card card = allcard.get(currentCardIndex);
+                card.setRemember(false);
+                allcard.set(currentCardIndex, card);
+                System.out.println("forgot");
+            }
+            writeNewOne.update(allcard);
+        });
         categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        subjectsList=subjectManager.readSubject();
+        subjects=subjectsList.toArray(new String[0]);
+        categoryComboBox.removeAllItems();
+        for(String s:subjects){
+            categoryComboBox.addItem(s);
+        }
         categoryPanel.add(categoryComboBox);
         categoryPanel.add(forgotPanel);
 
@@ -65,10 +105,41 @@ public class ErrorCollectWindow extends JPanel {
         topPanel.add(categoryPanel);
         //  Card
         leftButton = new JButton("👈");
+        leftButton.addActionListener(e -> {
+            if (currentCardIndex==0){
+                currentCardIndex= allcard.size();
+            }
+            if(selectedall){
+                readCards(--currentCardIndex,0);
+            }
+            else{
+                readCards(--currentCardIndex,subjectNow,0);
+            }
+
+            System.out.printf("size=%d , index=%d\n",allcard.size(),currentCardIndex);
+            hideornot[0]=true;
+            hintButton.setText("提示");
+            hintField.setText("* * * * * * * * * * * * * *");
+        });
         leftButton.setPreferredSize(new Dimension(40, 70));
         leftPanel = new JPanel(new GridBagLayout());
         leftPanel.add(leftButton);
         rightButton = new JButton("👉");
+        rightButton.addActionListener(e -> {
+            if (currentCardIndex==allcard.size()-1){
+                currentCardIndex= -1;
+            }
+            if(selectedall){
+                readCards(++currentCardIndex,1);
+            }
+            else{
+                readCards(++currentCardIndex,subjectNow,1);
+            }
+            System.out.printf("size=%d , index=%d\n",allcard.size(),currentCardIndex);
+            hideornot[0]=true;
+            hintButton.setText("提示");
+            hintField.setText("* * * * * * * * * * * * * *");
+        });
         rightButton.setPreferredSize(new Dimension(40, 70));
         rightPanel = new JPanel(new GridBagLayout());
         rightPanel.add(rightButton);
@@ -109,40 +180,108 @@ public class ErrorCollectWindow extends JPanel {
         //add(new JLabel(Arrays.toString(duration), JLabel.CENTER));
         // 返回首頁
         backButton.addActionListener(e -> parent.showMain());
-
-
-
+        allcard = cardManager.readAllCards();
+        readCards(currentCardIndex,1);
 
         // 顯示不同科目的卡片
         categoryComboBox.addActionListener(e -> {
-            String selected = (String) categoryComboBox.getSelectedItem();
-            // 根據 selected 進行卡片顯示更新
+            subjectNow = (String) categoryComboBox.getSelectedItem();
+            if(Objects.equals(subjectNow, "全部")){
+                readCards(0,1);
+                selectedall=true;
+                currentCardIndex = 0;
+                System.out.println(" Select All becomes true.");
+            }
+            else{
+                allcard=cardManager.readAllCards();
+                confirm = 0;
+                for(Card a :allcard){
+                    if(a.getCategory().equals(subjectNow))  confirm++;
+                }
+                if (confirm == 0) {
+                    if(ff==0)   JOptionPane.showMessageDialog(this,"沒有這科目的卡片");
+                    else ff=0;
+                }
+                else{
+                    readCards(0,subjectNow,1);
+                    selectedall=false;
+                    System.out.println(" You choose a specific subject.");
+                }
+            }
         });
 
         // 顯示提示
-        final boolean[] isOrignal = {true};
+
         hintButton.addActionListener(e -> {
             System.out.println("提示");
-            if (isOrignal[0]) {
+            if (hideornot[0]) {
                 FontMetrics ht = hintField.getFontMetrics(hintField.getFont());
                 hintField.setPreferredSize(new Dimension(ht.stringWidth(hintField.getText()),hintField.getHeight()));
-                hintField.setText("哈囉你好嗎?");
+                hintField.setText(allcard.get(currentCardIndex).getBackHint());
                 hintButton.setText("隱藏");
             } else {
                 hintField.setText("* * * * * * * * * * * * * *");
                 hintButton.setText("提示");
             }
-            isOrignal[0] = !isOrignal[0];   // 按一次變一次
-
+            hideornot[0] = !hideornot[0];   // 按一次變一次
         });
+    }
 
+    public void readCards(int dir,int gowhere){
 
+        for (Card card : allcard) {
+            System.out.println(card);
+        }while(allcard.get(dir).getRemember()){
+            if(gowhere==1)  dir++;
+            else dir--;
+            if (dir==-1){
+                dir= allcard.size()-1;
+            }
+            if (dir==allcard.size()){
+                dir= 0;
+            }
+        }
+        currentCardIndex=dir;
+        if(allcard.get(dir).getRemember()){
+            rememberButton.setSelected(true);
+            forgotButton.setSelected(false);
+        }
+        else{
+            rememberButton.setSelected(false);
+            forgotButton.setSelected(true);
+        }
+        cardPanel.updateCard(allcard.get(dir));
 
     }
 
-    private JFrame parentFrame() {
-        return (JFrame) SwingUtilities.getWindowAncestor(this);
+    public void readCards(int dir,String sub,int gowhere){
+        //gowhere 1 是往後，0是往左
+        for (Card card : allcard) {
+            System.out.println(card);
+        }
+        while(!Objects.equals(allcard.get(dir).getCategory(), sub)&&!Objects.equals(allcard.get(dir).getCategory(),"全部")&& allcard.get(dir).getRemember()){
+            if(gowhere==1)  dir++;
+            else dir--;
+            if (dir==-1){
+                dir= allcard.size()-1;
+            }
+            if (dir==allcard.size()){
+                dir= 0;
+            }
+        }
+        currentCardIndex=dir;
+        if(allcard.get(dir).getRemember()){
+            rememberButton.setSelected(true);
+            forgotButton.setSelected(false);
+        }
+        else{
+            rememberButton.setSelected(false);
+            forgotButton.setSelected(true);
+        }
+        cardPanel.updateCard(allcard.get(dir));
+
     }
+
 
 
 

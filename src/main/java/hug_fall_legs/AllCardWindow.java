@@ -31,6 +31,7 @@ public class AllCardWindow extends JPanel {
     private String subjectNow = "";
     private int confirm;
     private int ff = 0;
+    private writeANewOne writeNewOne = new writeANewOne();
 
 
     public AllCardWindow(testmainMadeBy13 parent) {
@@ -52,7 +53,9 @@ public class AllCardWindow extends JPanel {
         add(hintPanel,BorderLayout.SOUTH);
         //add(new JLabel(Arrays.toString(duration), JLabel.CENTER));
         // 返回首頁
-        backButton.addActionListener(e -> parent.showMain());
+        backButton.addActionListener(e -> {
+            parent.showMain();
+        });
         // 新增卡片
         addButton.addActionListener(e -> {
             AddCardDialog addCardDialog = new AddCardDialog(this);
@@ -79,16 +82,11 @@ public class AllCardWindow extends JPanel {
                     else ff=0;
                 }
                 else{
-
-                        readCards(0,subjectNow,1);
-                        selectedall=false;
-                        System.out.println(" You choose a specific subject.");
-
+                    readCards(0,subjectNow,1);
+                    selectedall=false;
+                    System.out.println(" You choose a specific subject.");
                 }
             }
-
-
-
         });
         // 顯示提示
         hintButton.addActionListener(e -> {
@@ -105,6 +103,7 @@ public class AllCardWindow extends JPanel {
             hideornot[0] = !hideornot[0];   // 按一次變一次
 
         });
+        allcard = cardManager.readAllCards();
         readCards(currentCardIndex);
 
 
@@ -117,16 +116,24 @@ public class AllCardWindow extends JPanel {
         }
     }*/
     public void readCards(int dir){
-        allcard = cardManager.readAllCards();
+
         for (Card card : allcard) {
             System.out.println(card);
         }
+        if(allcard.get(dir).getRemember()){
+            rememberButton.setSelected(true);
+            forgotButton.setSelected(false);
+        }
+        else{
+            rememberButton.setSelected(false);
+            forgotButton.setSelected(true);
+        }
         cardPanel.updateCard(allcard.get(dir));
+
     }
 
     public void readCards(int dir,String sub,int gowhere){
         //gowhere 1 是往後，0是往左
-        allcard = cardManager.readAllCards();
         for (Card card : allcard) {
             System.out.println(card);
         }
@@ -141,7 +148,16 @@ public class AllCardWindow extends JPanel {
             }
         }
         currentCardIndex=dir;
+        if(allcard.get(dir).getRemember()){
+            rememberButton.setSelected(true);
+            forgotButton.setSelected(false);
+        }
+        else{
+            rememberButton.setSelected(false);
+            forgotButton.setSelected(true);
+        }
         cardPanel.updateCard(allcard.get(dir));
+
     }
 
     public void addTitlePanel() {
@@ -196,6 +212,27 @@ public class AllCardWindow extends JPanel {
         forgotPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         forgotPanel.add(rememberButton);
         forgotPanel.add(forgotButton);
+        rememberButton.addActionListener(e -> {
+            if(rememberButton.isSelected()){
+                forgotButton.setSelected(false);
+                Card card = allcard.get(currentCardIndex);
+                card.setRemember(true);
+                allcard.set(currentCardIndex, card);
+                System.out.println(card);
+                System.out.println("remember");
+            }
+            writeNewOne.update(allcard);
+        });
+        forgotButton.addActionListener(e -> {
+            if(forgotButton.isSelected()){
+                rememberButton.setSelected(false);
+                Card card = allcard.get(currentCardIndex);
+                card.setRemember(false);
+                allcard.set(currentCardIndex, card);
+                System.out.println("forgot");
+            }
+            writeNewOne.update(allcard);
+        });
 
         categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         categoryPanel.add(categoryComboBox);
@@ -265,8 +302,6 @@ public class AllCardWindow extends JPanel {
         if (!cardManager.getCardList().isEmpty()){  // CardList 中有存卡片
             cardPanel.updateCard(cardManager.getCardList().get(currentCardIndex));
         }*/
-
-
         midPanel = new JPanel(new BorderLayout());
         midPanel.add(leftPanel,BorderLayout.WEST);
         midPanel.add(cardPanel,BorderLayout.CENTER);
@@ -279,9 +314,6 @@ public class AllCardWindow extends JPanel {
         hintField = new JTextField("* * * * * * * * * * * * * *");
         hintField.setEditable(false);
         //hintField.setVisible(false);
-
-
-
         hintPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         hintPanel.add(hintField);
         hintPanel.add(hintButton);

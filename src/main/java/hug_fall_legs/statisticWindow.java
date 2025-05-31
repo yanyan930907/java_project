@@ -19,7 +19,7 @@ public class statisticWindow extends JPanel {
 
 
     public statisticWindow(testmainMadeBy13 parent) {
-        System.out.println("切換到統計頁面");
+
         this.parent = parent;
         setLayout(new GridLayout(2, 1, 10, 10));
 

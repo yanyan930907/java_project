@@ -23,7 +23,7 @@ public class AllDataWindow extends JPanel {
 
     public AllDataWindow(testmainMadeBy13 parent) {
         this.parent = parent;
-        System.out.println("切換到所有資料頁面");
+
 
         // 設定 Look and Feel
         try {

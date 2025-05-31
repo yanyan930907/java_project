@@ -99,6 +99,9 @@ public class AddCardDialog extends JDialog{
                     categoryComboBox.addItem(input);
                     a.resetArray();
                 }
+                else{
+                    JOptionPane.showMessageDialog(this,"科目不可以有空格");
+                }
                 newFrame.dispose();
             });
 

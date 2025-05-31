@@ -54,21 +54,21 @@ public class ButtonPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             Object source = e.getSource();
             if (source == allCardsButton) {
-                System.out.println("全部卡片被按下");
+                //System.out.println("全部卡片被按下");
                 parent.showAllCardWindow();
             }
             else if (source == statisticButton) {
-                System.out.println("統計資料被按下");
+                //System.out.println("統計資料被按下");
                 parent.showStatisticWindow();
             }
             else if (source == errorButton) {
                 countingError=0;
                 allCard = cardManager.readAllCards();
                 for(Card card : allCard){
-                    if(card.getRemember())  countingError++;
+                    if(!card.getRemember())  countingError++;
                 }
                 if(countingError!=0){
-                    System.out.println("錯誤整理被按下");
+                    //System.out.println("錯誤整理被按下");
                     parent.showErrorWindow();
                 }
                 else{
@@ -77,7 +77,7 @@ public class ButtonPanel extends JPanel {
 
             }
             else if (source == allDataButton) {
-                System.out.println("所有資料被按下");
+                //System.out.println("所有資料被按下");
                 parent.showAllDataWindow();
             }
         }
