@@ -77,6 +77,8 @@ public class TimePanel extends JPanel {
             }
         });
         swingTimer.start();
+        stopTimeButton.setEnabled(false);
+        recordButton.setEnabled(false);
     }
     private class TimePanelListener implements ActionListener {
         @Override
@@ -85,10 +87,16 @@ public class TimePanel extends JPanel {
             if (source == setTimeButton) {
                 System.out.println("設定時間被按下");
                 timerManager.run();
+                setTimeButton.setEnabled(false);
+                stopTimeButton.setEnabled(true);
+                recordButton.setEnabled(true);
             }
             else if (source == stopTimeButton) {
                 System.out.println("暫停時間被按下");
                 timerManager.pause();
+                setTimeButton.setEnabled(true);
+                stopTimeButton.setEnabled(false);
+                recordButton.setEnabled(true);
             }
             else if (source == recordButton) {
                 System.out.println("結束時間被按下");
@@ -101,6 +109,9 @@ public class TimePanel extends JPanel {
                 writer.appendDateAndNote(nowTime,note);
                 Time zeroTime = new Time(0, 0, 0);
                 updateTime(zeroTime);
+                setTimeButton.setEnabled(true);
+                stopTimeButton.setEnabled(false);
+                recordButton.setEnabled(false);
 
             }
         }

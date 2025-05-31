@@ -21,7 +21,7 @@ public class CardDisplayPanel  extends JPanel{
         setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
 
         frontTextLabel = new JLabel("Front Text");
-        frontTextLabel.setFont(new Font("DFKai-SB", Font.BOLD, 20));
+        frontTextLabel.setFont(new Font("DFKai-SB", Font.BOLD, 30));
         frontTextLabel.setHorizontalAlignment(JLabel.CENTER);
 
         subjectLabel = new JLabel("Subject:");
@@ -40,7 +40,7 @@ public class CardDisplayPanel  extends JPanel{
         topPanel.add(frontTextLabel,BorderLayout.WEST);
         topPanel.add(subjectLabel,BorderLayout.EAST);
 
-        imagPanel = new JPanel(new FlowLayout());
+        imagPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         imagPanel.add(imageIconLabel);
 
         linkPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
