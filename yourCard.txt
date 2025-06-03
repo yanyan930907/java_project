@@ -4,4 +4,4 @@
 233	rapa.png	963	Java	images.jpg	true
 9999999999999999	螢幕擷取畫面212835.png	99999999999	555	尚未選擇關聯檔案	true
 4544	目前沒有選擇圖片	214	555	尚未選擇關聯檔案	true
-222	rapa(1).png	33	國文	images.jpg	true
+222	rapa(1).png	33	國文	images.jpg	false
