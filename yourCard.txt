@@ -1,8 +1,8 @@
-123123	1727416381795.jpg	123	電腦網路	image66s33.jpg	true
-24	458207.jpg	424	電腦網路	image66s33.jpg	true
-我不要	ambassadors.jpg	滋滋滋滋滋滋滋ㄚㄚㄚㄚ	Java	image66s33.jpg	true
-233	rapa.png	963	Java	image66s33.jpg	true
+123123	1727416381795.jpg	123	電腦網路	image123.jpg	true
+24	458207.jpg	424	電腦網路	image123.jpg	true
+我不要	ambassadors.jpg	滋滋滋滋滋滋滋ㄚㄚㄚㄚ	Java	image123.jpg	true
+233	rapa.png	963	Java	image123.jpg	true
 9999999999999999	ambassadors.jpg	99999999999	Java	未選擇關聯檔案	true
 4544	目前沒有選擇圖片	214	國文	未選擇關聯檔案	true
-222	rapa(1).png	33	國文	image66s33.jpg	true
-234	Predator_Wallpaper_03_3840x2400(1).jpg	123	英文 沒了!通通都沒了!!	false
+222	rapa(1).png	33	國文	image123.jpg	true
+234	Predator_Wallpaper_03_3840x2400(1).jpg	123	英文	沒了!通通都沒了!!	false
