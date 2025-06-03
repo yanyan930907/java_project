@@ -56,7 +56,7 @@ public class AddCardDialog extends JDialog{
         add(hintField);
 
         add(new JLabel("    Subject："));
-        subjectsList=subjectManager.readSubject();
+        subjectsList=subjectManager.readSubject("a");
         categoryComboBox = new JComboBox<>(subjectsList.toArray(new String[0]));
         categoryComboBox.setMaximumRowCount(4);
         subjectPanel= new JPanel();
@@ -205,7 +205,7 @@ public class AddCardDialog extends JDialog{
             }
 
             try {
-                imageName = destination.getName().toLowerCase();
+                imageName = destination.getName();
                 if (!(imageName.endsWith(".png") || imageName.endsWith(".jpg") ||
                         imageName.endsWith(".jpeg") || imageName.endsWith(".gif"))) {
 

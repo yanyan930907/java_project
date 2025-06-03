@@ -58,10 +58,33 @@ public class SubjectManager {
         closeFile();
         return list;
     }
+    public ArrayList<String> readSubject(String sig) {
+        openFiles();
+        ArrayList<String> list = readRecords(sig);
+        closeFile();
+        return list;
+    }
     public ArrayList<String> readRecords() {
         ArrayList<String> list = new ArrayList<String>();
         //System.out.printf("%-12s%-12s%10s%n", "First Name", "Last Name", "Balance");
         list.add("全部");
+        try {
+            while (input.hasNext()) // while there is more to read
+            {
+                String now = input.next();
+                list.add(now);
+            }
+        } catch (NoSuchElementException elementException) {
+            System.err.println("File improperly formed. Terminating.");
+        } catch (IllegalStateException stateException) {
+            System.err.println("Error reading from file. Terminating.");
+        }
+
+        return list;
+    }
+    public ArrayList<String> readRecords(String sig) {
+        ArrayList<String> list = new ArrayList<String>();
+        //System.out.printf("%-12s%-12s%10s%n", "First Name", "Last Name", "Balance");
         try {
             while (input.hasNext()) // while there is more to read
             {

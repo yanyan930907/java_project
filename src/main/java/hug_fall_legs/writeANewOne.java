@@ -19,6 +19,13 @@ public class writeANewOne {
         closeFile();
     }
 
+    //修改filename
+    public void update(ArrayList<Card> cardList,String a,String b) {
+        openfile();
+        reRead(cardList,a,b);
+        closeFile();
+    }
+
     private void openfile() {
         try {
             FileWriter fw = new FileWriter(fileName);
@@ -42,6 +49,21 @@ public class writeANewOne {
         try {
             for (Card card : cardList) {
                 output.format("%s\t%s\t%s\t%s\t%s\t%b%n", card.getFrontText(), card.getImagePath(), card.getBackHint(), card.getCategory(), card.getLinkedFilePath(), card.getRemember());
+            }
+        } catch (FormatterClosedException formatterClosedException) {
+            System.err.println("Error writing to file. Terminating.");
+        }
+    }
+
+    private void reRead(ArrayList<Card> cardList,String a,String b) {
+        try {
+            for (Card card : cardList) {
+                if(Objects.equals(card.getLinkedFilePath(), b)){
+                    output.format("%s\t%s\t%s\t%s\t%s\t%b%n", card.getFrontText(), card.getImagePath(), card.getBackHint(), card.getCategory(), a, card.getRemember());
+                }
+                else{
+                    output.format("%s\t%s\t%s\t%s\t%s\t%b%n", card.getFrontText(), card.getImagePath(), card.getBackHint(), card.getCategory(), card.getLinkedFilePath(), card.getRemember());
+                }
             }
         } catch (FormatterClosedException formatterClosedException) {
             System.err.println("Error writing to file. Terminating.");

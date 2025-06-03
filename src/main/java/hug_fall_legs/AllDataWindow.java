@@ -20,10 +20,13 @@ public class AllDataWindow extends JPanel {
     private SubjectManager subjectManager = new SubjectManager();
     private ArrayList<String> subjectsList = new ArrayList<>();
     private String[] subjects;
+    private CardManager cardManager = new CardManager();
+    private ArrayList<Card> allcard;
+    private writeANewOne writeNewOne = new writeANewOne();
 
     public AllDataWindow(testmainMadeBy13 parent) {
         this.parent = parent;
-
+        allcard =cardManager.readAllCards();
 
         // 設定 Look and Feel
         try {
@@ -133,9 +136,15 @@ public class AllDataWindow extends JPanel {
 
             try {
                 Files.copy(selectedFile.toPath(), destination.toPath());
+                if(destination.getName().contains(" ")){
+                    throw new IllegalArgumentException("空格");
+                }
                 JOptionPane.showMessageDialog(this, "檔案已成功複製到 allData 資料夾\n名稱：" + destination.getName());
                 refreshFileList();
-            } catch (IOException ex) {
+            }catch (IllegalArgumentException e){
+                JOptionPane.showMessageDialog(this, "檔案不能有空格\n名稱：" + destination.getName());
+            }
+            catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "複製檔案失敗：" + ex.getMessage());
             }
         }
@@ -174,9 +183,10 @@ public class AllDataWindow extends JPanel {
             if (newName != null && !newName.trim().isEmpty()) {
                 File oldFile = new File(folderPath, selected);
                 File newFile = new File(folderPath, newName);
-                if (oldFile.renameTo(newFile)) {
+                if (oldFile.renameTo(newFile) && !newName.contains(" ")) {
                     JOptionPane.showMessageDialog(this, "修改成功");
                     refreshFileList();
+                    writeNewOne.update(allcard,newName,selected);
                 } else {
                     JOptionPane.showMessageDialog(this, "修改失敗");
                 }
@@ -196,6 +206,7 @@ public class AllDataWindow extends JPanel {
                 if (file.delete()) {
                     JOptionPane.showMessageDialog(this, "刪除成功");
                     refreshFileList();
+                    writeNewOne.update(allcard,"沒了!通通都沒了!!",selected);
                 } else {
                     JOptionPane.showMessageDialog(this, "刪除失敗");
                 }
