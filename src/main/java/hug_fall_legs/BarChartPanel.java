@@ -1,7 +1,9 @@
 package hug_fall_legs;
+import com.sun.jdi.BooleanValue;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.data.UnknownKeyException;
 import org.jfree.data.category.DefaultCategoryDataset;
 import javax.swing.JPanel;
 import java.io.BufferedReader;
@@ -14,23 +16,31 @@ import java.util.Date;
 public class BarChartPanel{
     public static JPanel createBarChartPanel(String timeRange) {
         DefaultCategoryDataset dataset;
+        Boolean returnChartPanle = true;
         switch (timeRange) {
             case "一天":
                 dataset = createDataSet("一天");
+                returnChartPanle = true;
                 break;
             case "一週":
                 dataset = createDataSet("一週");
+                returnChartPanle = true;
                 break;
             case "一月":
                 dataset = createDataSet("一月");
+                returnChartPanle = true;
                 break;
             case "一季":
                 dataset = createDataSet("一季");
+                returnChartPanle = true;
                 break;
             case "全部":
-                dataset = createDataSet("全部");
+                dataset = createDataSet("一天");
+                returnChartPanle = false;
+                break;
             default:
-                dataset = createDataSet("全部");
+                dataset = createDataSet("一天");
+                returnChartPanle=false;
                 break;
         }
         JFreeChart chart = ChartFactory.createBarChart(
@@ -39,8 +49,13 @@ public class BarChartPanel{
                 "Time",         // Y 軸標籤
                 dataset         // 資料集
         );
+        if(returnChartPanle == true){
+            return new ChartPanel(chart);
+        }
+        else{
+            return new TimeDisplayPanel("collectTime.txt");
+        }
 
-        return new ChartPanel(chart);  // 回傳 ChartPanel
     }
     private static String getSeason(String dateStr) {
         // 解析字串 "5/28" -> 月份是 5
@@ -78,7 +93,7 @@ public class BarChartPanel{
                 // 假設每行格式為 "4/28 00:00:03"
                 // 使用空白拆分成日期和時間兩部分
                 String[] parts = line.split(" ");
-                if (parts.length == 2) {
+                if (parts.length >= 2) {
                     String dateStr = parts[0]; // 取得日期字串，例如 "4/28"
                     String timeStr = parts[1]; // 取得時間字串，例如 "00:00:03"
                     try {
@@ -98,7 +113,8 @@ public class BarChartPanel{
                             // 將秒數 value 與日期字串 dateStr 加入資料集中
                             // "time" 為數據系列名稱，dateStr 為類別鍵
                             if(select=="一天"){
-                                dataset.addValue(value, "time", dateStr);
+                                Number oldValue = getOldValue(dataset, "time", dateStr);
+                                dataset.addValue(value+oldValue.doubleValue(), "time", dateStr);
                             }
                             else if(select=="一週"){
                                 Date now = new Date();
@@ -114,17 +130,20 @@ public class BarChartPanel{
                                 try {
                                     Date parsedDate = sdf.parse(fullDateStr);
                                     if (parsedDate.getTime() >= sevenDaysAgo) {
-                                        dataset.addValue(value, "time", dateStr);
+                                        Number oldValue = getOldValue(dataset, "time", dateStr);
+                                        dataset.addValue(value + oldValue.doubleValue(), "time", dateStr);
                                     }
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
                             }
                             else if(select=="一月"){
-                                dataset.addValue(value, "time", getMonth(dateStr));
+                                Number oldValue = getOldValue(dataset, "time", getMonth(dateStr));
+                                dataset.addValue(value+oldValue.doubleValue(), "time", getMonth(dateStr));
                             }
                             else if(select=="一季") {
-                                dataset.addValue(value, "time", getSeason(dateStr));
+                                Number oldValue = getOldValue(dataset, "time", getSeason(dateStr));
+                                dataset.addValue(value+oldValue.doubleValue(), "time", getSeason(dateStr));
                             }
                         }
                     } catch (ParseException e) {
@@ -141,6 +160,16 @@ public class BarChartPanel{
         // 回傳填好資料的資料集物件
         return dataset;
     }
+    private static Number getOldValue(DefaultCategoryDataset dataset, Comparable rowKey, Comparable columnKey) {
+        try {
+            Number val = dataset.getValue(rowKey, columnKey);
+            return val == null ? 0 : val;
+        } catch (UnknownKeyException e) {
+            // key 不存在，回傳 0
+            return 0;
+        }
+    }
 }
+
 
 

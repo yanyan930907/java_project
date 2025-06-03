@@ -230,9 +230,6 @@ public class ErrorCollectWindow extends JPanel {
             }
         }
         System.out.println("countingError="+countingError);
-        if(countingError==0) {
-            JOptionPane.showMessageDialog(this,"你沒什麼好讀的");
-        }
     }
 
     public void readCards(int dir,String sub,int gowhere){
