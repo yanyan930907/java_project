@@ -251,6 +251,7 @@ public class AllCardWindow extends JPanel {
     public void addControlButton() {
         leftButton = new JButton("👈");
         leftButton.addActionListener(e -> {
+            allcard = cardManager.readAllCards();
             if (currentCardIndex==0){
                 currentCardIndex= allcard.size();
             }
@@ -271,6 +272,7 @@ public class AllCardWindow extends JPanel {
         leftPanel.add(leftButton);
         rightButton = new JButton("👉");
         rightButton.addActionListener(e -> {
+            allcard = cardManager.readAllCards();
             if (currentCardIndex==allcard.size()-1){
                 currentCardIndex= -1;
             }
