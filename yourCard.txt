@@ -1,4 +1,3 @@
-123123	1727416381795(1).jpg	123	電腦網路	images.jpg	true
 24	458207.jpg	424	電腦網路	images.jpg	true
 我不要	ambassadors(1).jpg	滋滋滋滋滋滋滋ㄚㄚㄚㄚ	Java	images.jpg	true
 233	rapa.png	963	Java	images.jpg	true
